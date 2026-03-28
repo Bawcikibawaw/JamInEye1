@@ -9045,7 +9045,7 @@ MonoBehaviour:
   boneElasticity: 35
   maxBoneDrift: 0.3
   canMoveWASD: 0
-  wasdSpeed: 10
+  wasdSpeed: 3
   activeShadows: []
   launchGraceTimer: 0
   bounceGraceTimer: 0
@@ -9063,6 +9063,8 @@ MonoBehaviour:
   trajectoryLine: {fileID: 1534142965}
   trajectoryPoints: 2
   trajectoryTimeStep: 0.05
+  normalColliderRadius: 0.3
+  shadowColliderRadius: 1.2
 --- !u!58 &813535289
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9151,6 +9153,7 @@ MonoBehaviour:
   healthyColor: {r: 1, g: 1, b: 1, a: 1}
   dangerColor: {r: 1, g: 0, b: 0, a: 1}
   maxHP: 70
+  maxHpInDanger: 100
   currentHP: 70
   shadowRegenRate: 20
   inDanger: 0
