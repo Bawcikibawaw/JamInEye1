@@ -46,10 +46,18 @@ public class SlimeThrower : MonoBehaviour
     [Header("Shadow Collider Settings")]
     public float normalColliderRadius = 0.3f;   // bone_9 radius normally
     public float shadowColliderRadius = 1.2f;   // bone_9 radius inside shadow
-    
+
+    [Header("Bone Drag Physics")]
+    public float dragBoneSpring = 140f;
+    public float dragBoneDamping = 18f;
+    public float dragBoneMaxForce = 80f;
+    public float dragBoneMaxSpeed = 12f;
+    public float dragAngleThreshold = 65f;
+    public float homeSpringMultiplier = 0.7f;
+
     private CircleCollider2D _centerCollider;
 
-
+    private Vector2 _dragStartScreen;
     public bool IsDragging => _isDragging;
     public void SqueezeBones(float ratio) => _currentSqueeze = ratio;
     
@@ -147,81 +155,130 @@ public class SlimeThrower : MonoBehaviour
         {
             for (int i = 0; i < edgeBones.Length; i++)
             {
-                Vector2 homePos = _initialOffsets[i] * _currentSqueeze;
-            
-                edgeBones[i].transform.localPosition = Vector2.Lerp(
-                    edgeBones[i].transform.localPosition, 
-                    homePos, 
-                    Time.deltaTime * boneElasticity
-                );
+                Rigidbody2D boneRb = _edgeRBs[i];
+                if (boneRb == null) continue;
 
-                if (!_isFlying) _edgeRBs[i].linearVelocity = Vector2.zero;
+                Vector2 homePos = _initialOffsets[i] * _currentSqueeze;
+                ApplyIdleBoneSpring(boneRb, homePos, !_isFlying);
             }
         }
+    }
+
+    private void ApplyIdleBoneSpring(Rigidbody2D boneRb, Vector2 targetLocal, bool stronglyDamp)
+    {
+        Vector2 targetWorld = transform.TransformPoint(targetLocal);
+        Vector2 toTarget = targetWorld - boneRb.position;
+
+        float spring = boneElasticity * 8f;
+        float damping = stronglyDamp ? dragBoneDamping * 1.4f : dragBoneDamping;
+
+        Vector2 force = toTarget * spring - boneRb.linearVelocity * damping;
+
+        float maxForce = stronglyDamp ? dragBoneMaxForce : dragBoneMaxForce * 0.8f;
+        if (force.magnitude > maxForce)
+            force = force.normalized * maxForce;
+
+        boneRb.AddForce(force, ForceMode2D.Force);
+
+        if (stronglyDamp)
+            boneRb.linearVelocity *= 0.9f;
     }
 
     private void UpdateDragging()
     {
-        Vector2 delta = Vector2.ClampMagnitude(GetMouseWorldPos() - _dragStartWorld, maxDragDistance);
-        Vector2 localDelta = transform.InverseTransformDirection(delta);
-        
-        for (int i = 0; i < edgeBones.Length; i++)
-        {
-            float bAngle = Mathf.Atan2(_initialOffsets[i].y, _initialOffsets[i].x) * Mathf.Rad2Deg;
-            float dAngle = Mathf.Atan2(localDelta.y, localDelta.x) * Mathf.Rad2Deg;
-            
-            // Check if this specific bone is in the "pulling zone" of the mouse
-            if (Mathf.Abs(Mathf.DeltaAngle(bAngle, dAngle)) < 65f)
-            {
-                // Pull out toward mouse, but CLAMP the distance
-                Vector2 stretchTarget = _initialOffsets[i] + (localDelta.normalized * maxBoneDrift);
-                edgeBones[i].transform.localPosition = Vector2.Lerp(edgeBones[i].transform.localPosition, stretchTarget, Time.deltaTime * 20f);
-            }
-            else
-            {
-                // If mouse isn't pulling this bone, it snaps back home IMMEDIATELY
-                edgeBones[i].transform.localPosition = Vector2.Lerp(edgeBones[i].transform.localPosition, _initialOffsets[i], Time.deltaTime * boneElasticity);
-            }
-        }
-        if (trajectoryLine != null) DrawTrajectory(-delta * launchForce);
+        Vector2 delta = GetDragDeltaWorldLike();
+
+        Vector2 launchDirWorld = delta.sqrMagnitude > 0.0001f ? (-delta).normalized : Vector2.zero;
+        Vector2 pullDirWorld = delta.sqrMagnitude > 0.0001f ? delta.normalized : Vector2.zero;
+
+        // Convert pull direction into local space because initial offsets are local
+        Vector2 pullDirLocal = delta.sqrMagnitude > 0.0001f
+            ? (Vector2)transform.InverseTransformDirection(pullDirWorld).normalized
+            : Vector2.zero;
+
+        //for (int i = 0; i < edgeBones.Length; i++)
+        //{
+        //    Rigidbody2D boneRb = _edgeRBs[i];
+        //    if (boneRb == null) continue;
+
+        //    Vector2 boneHomeLocal = _initialOffsets[i];
+        //    Vector2 targetLocal = boneHomeLocal;
+
+        //    if (delta.sqrMagnitude > 0.0001f)
+        //    {
+        //        float boneAngle = Mathf.Atan2(boneHomeLocal.y, boneHomeLocal.x) * Mathf.Rad2Deg;
+        //        float pullAngle = Mathf.Atan2(pullDirLocal.y, pullDirLocal.x) * Mathf.Rad2Deg;
+
+        //        if (Mathf.Abs(Mathf.DeltaAngle(boneAngle, pullAngle)) < dragAngleThreshold)
+        //        {
+        //            targetLocal = boneHomeLocal + pullDirLocal * maxBoneDrift;
+        //        }
+        //    }
+
+        //    ApplyBoneSpringToLocalTarget(boneRb, targetLocal, delta.sqrMagnitude > 0.0001f);
+        //}
+
+        if (trajectoryLine != null)
+            DrawTrajectory(delta.sqrMagnitude > 0.0001f ? launchDirWorld * (delta.magnitude * launchForce) : Vector2.zero);
+    }
+    private void ApplyBoneSpringToLocalTarget(Rigidbody2D boneRb, Vector2 targetLocal, bool isPulledBonePhase)
+    {
+        Vector2 targetWorld = transform.TransformPoint(targetLocal);
+        Vector2 toTarget = targetWorld - boneRb.position;
+
+        float spring = isPulledBonePhase ? dragBoneSpring : dragBoneSpring * homeSpringMultiplier;
+        float damping = dragBoneDamping;
+
+        Vector2 force = toTarget * spring - boneRb.linearVelocity * damping;
+
+        if (force.magnitude > dragBoneMaxForce)
+            force = force.normalized * dragBoneMaxForce;
+
+        boneRb.AddForce(force, ForceMode2D.Force);
+
+        if (boneRb.linearVelocity.magnitude > dragBoneMaxSpeed)
+            boneRb.linearVelocity = boneRb.linearVelocity.normalized * dragBoneMaxSpeed;
     }
 
     private void Launch()
     {
-        
         PlayerStats stats = GetComponent<PlayerStats>();
-    
-        // ── POWER CHECK ──
+
         if (stats != null && !stats.ConsumeJumpPower(jumpPowerCost))
         {
             Debug.Log("Not enough power to jump!");
             _isDragging = false;
             if (trajectoryLine != null) trajectoryLine.enabled = false;
-            return; 
+            return;
         }
-        
+
         _isDragging = false;
-        Vector2 delta = Vector2.ClampMagnitude(GetMouseWorldPos() - _dragStartWorld, maxDragDistance);
+
+        Vector2 delta = GetDragDeltaWorldLike();
         Vector2 launchVel = -delta * launchForce;
 
         if (_wallLayer != -1) Physics2D.IgnoreLayerCollision(_playerLayer, _wallLayer, false);
         ToggleColliders(true);
 
-        _rb.isKinematic = false; 
+        _rb.isKinematic = false;
         _rb.linearVelocity = launchVel;
+        _rb.angularVelocity = 0f;
 
-        // Force all bones to snap home and match the center's speed
-        for (int i = 0; i < edgeBones.Length; i++) {
+        for (int i = 0; i < edgeBones.Length; i++)
+        {
             _edgeRBs[i].isKinematic = false;
-            _edgeRBs[i].linearVelocity = launchVel; 
-            edgeBones[i].transform.localPosition = _initialOffsets[i]; 
+            _edgeRBs[i].linearVelocity = launchVel;
+            _edgeRBs[i].MovePosition(transform.TransformPoint(_initialOffsets[i]));
         }
-        _isFlying = true; 
-        launchGraceTimer = 0.5f; 
+
+        _isFlying = true;
+        launchGraceTimer = 0.5f;
         activeShadows.Clear();
+
         if (trajectoryLine != null) trajectoryLine.enabled = false;
+        MainAudioManager.Instance.Play("RelaseSFX");
     }
-    
+
 
     private void HandleWASD()
     {
@@ -254,19 +311,37 @@ public class SlimeThrower : MonoBehaviour
             _rb.AddForce(pushDir * wasdSpeed * 2f, ForceMode2D.Impulse);
         }
     }
-    
-    
+
+
     private void StartDragging()
     {
-        _isDragging = true; _isFlying = false; canMoveWASD = false; 
+        _isDragging = true;
+        _isFlying = false;
+        canMoveWASD = false;
+
         _rb.linearVelocity = Vector2.zero;
-        _dragStartWorld = GetMouseWorldPos();
+        _rb.angularVelocity = 0f;
+
+        _dragStartScreen = Input.mousePosition;
+
         if (trajectoryLine != null) trajectoryLine.enabled = true;
         if (_wallLayer != -1) Physics2D.IgnoreLayerCollision(_playerLayer, _wallLayer, true);
         ToggleColliders(false);
-    
-        // Re-add all current shadows immediately after toggling colliders
-        // so the list is never cleared during a drag
+    }
+
+    private Vector2 GetDragDeltaWorldLike()
+    {
+        Vector2 currentScreen = Input.mousePosition;
+        Vector2 screenDelta = currentScreen - _dragStartScreen;
+
+        // Convert screen delta to world-size delta
+        Camera cam = Camera.main;
+
+        Vector3 a = cam.ScreenToWorldPoint(new Vector3(0f, 0f, Mathf.Abs(cam.transform.position.z - transform.position.z)));
+        Vector3 b = cam.ScreenToWorldPoint(new Vector3(screenDelta.x, screenDelta.y, Mathf.Abs(cam.transform.position.z - transform.position.z)));
+
+        Vector2 worldDelta = (Vector2)(b - a);
+        return Vector2.ClampMagnitude(worldDelta, maxDragDistance);
     }
 
     private Vector2 GetMouseWorldPos() {
@@ -278,9 +353,17 @@ public class SlimeThrower : MonoBehaviour
         foreach (var b in edgeBones) b.GetComponent<Collider2D>().enabled = s;
     }
     void OnCollisionEnter2D(Collision2D col) { if (_isFlying) bounceGraceTimer = 0.25f; }
-    private void UpdateFlight() 
+    private void UpdateFlight()
     {
         _rb.linearVelocity *= (1f - Time.deltaTime * airDrag);
+        if (_rb.linearVelocity.magnitude <=2f)
+        {
+            //Debug.Log("SOundShouldStop");
+            //MainAudioManager.Instance.Stop("FlySFX");
+            //MainAudioManager.Instance.Stop("FlySFX",0.3f);
+            
+            _isFlying = false;
+        }
     }
     public void AddShadow(Collider2D c) { if (!activeShadows.Contains(c)) activeShadows.Add(c); }
     public void RemoveShadow(Collider2D c) { activeShadows.Remove(c); }
