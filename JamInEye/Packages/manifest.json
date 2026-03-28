@@ -2,6 +2,7 @@
   "dependencies": {
     "com.brainfartstudio.autotile": "https://github.com/MitchellOpitz/Automatic-Rule-Tile-Generator.git",
     "com.unity.ai.navigation": "2.0.9",
+    "com.unity.cinemachine": "3.1.6",
     "com.unity.collab-proxy": "2.12.4",
     "com.unity.feature.2d": "2.0.1",
     "com.unity.ide.rider": "3.0.38",
