@@ -26,7 +26,9 @@ Material:
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
   - BLURISHD_ON
+  - DOODLE_ON
   - MOTIONBLUR_ON
+  - ROUNDWAVEUV_ON
   - WARP_ON
   m_InvalidKeywords:
   - _BLURHD_ON
@@ -288,7 +290,7 @@ Material:
     - _RectSize: 1
     - _RotateUvAmount: 0
     - _RoundWaveSpeed: 2
-    - _RoundWaveStrength: 0.7
+    - _RoundWaveStrength: 1
     - _ShadowAlpha: 0.5
     - _ShadowX: 0.1
     - _ShadowY: -0.05
