@@ -2,95 +2,55 @@ using UnityEngine;
 
 public class ShadowZone : MonoBehaviour
 {
-    [Header("Shadow Settings")]
-    public float shadowFriction = 0.92f;
-    public float suctionSpeed = 5f;
-    
-    private Collider2D _zoneCollider;
-    private bool _isCapturing = false;
+    public float shadowBrakingForce = 45f; 
+    public float suctionSpeed = 8f;
+    private Collider2D _col;
 
-    void Awake()
-    {
-        _zoneCollider = GetComponent<Collider2D>();
-    }
+    void Awake() => _col = GetComponent<Collider2D>();
 
     void OnTriggerStay2D(Collider2D other)
     {
-        ShadowThrower player = other.GetComponent<ShadowThrower>();
+        SlimeThrower player = other.GetComponent<SlimeThrower>();
         if (player == null) return;
 
-        Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
+        if (player.launchGraceTimer > 0 || player.IsDragging) return;
 
-        // 1. If player is moving fast, apply friction
-        if (!player.canMoveWASD && playerRb.linearVelocity.magnitude > player.stopThreshold)
+        if (player.canMoveWASD) { player.AddShadow(_col); return; }
+
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+        float speed = rb.linearVelocity.magnitude;
+
+        if (speed > player.stopThreshold)
         {
-            playerRb.linearVelocity *= shadowFriction;
+            rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, Vector2.zero, Time.deltaTime * shadowBrakingForce);
+            player.SetFrictionVisual(1.0f);
         }
-
-        // 2. If slow and inside, start the capture process
-        if (!player.canMoveWASD && playerRb.linearVelocity.magnitude <= player.stopThreshold)
+        else if (AreAllBonesInside(player))
         {
-            if (AreAllBonesInside(player))
+            Vector2 target = (Vector2)transform.position;
+            player.transform.position = Vector3.Lerp(player.transform.position, new Vector3(target.x, target.y, player.transform.position.z), Time.deltaTime * suctionSpeed);
+            player.transform.localPosition = new Vector3(player.transform.localPosition.x, player.transform.localPosition.y, 0f);
+
+            if (Vector2.Distance(player.transform.position, target) < 0.15f)
             {
-                CapturePlayer(player);
+                player.FreezeSlime();
+                player.canMoveWASD = true;
+                player.AddShadow(_col);
             }
         }
-
-        // 3. If player is in WASD mode, keep them trapped inside the collider
-        if (player.canMoveWASD)
-        {
-            ClampPlayerToZone(player);
-        }
     }
 
-    void CapturePlayer(ShadowThrower player)
+    private bool AreAllBonesInside(SlimeThrower player)
     {
-        _isCapturing = true;
-    
-        // 1. Get the target center but keep the player's CURRENT Z
-        Vector3 targetPos = transform.position; 
-        targetPos.z = player.transform.position.z; 
-
-        // 2. Move using Vector3.Lerp so Z doesn't get reset to 0
-        player.transform.position = Vector3.Lerp(player.transform.position, targetPos, Time.deltaTime * suctionSpeed);
-
-        if (Vector2.Distance(player.transform.position, targetPos) < 0.05f)
-        {
-            player.transform.position = targetPos;
-            player.FreezeSlime();
-            player.canMoveWASD = true;
-            _isCapturing = false;
-        }
-    }
-    void ClampPlayerToZone(ShadowThrower player)
-    {
-        // Get the closest point on the edge of the shadow collider
-        // If the player tries to move outside, this snaps them back to the edge
-        Vector3 playerPos = player.transform.position;
-        if (!_zoneCollider.OverlapPoint(playerPos))
-        {
-            Vector3 closestPoint = _zoneCollider.ClosestPoint(playerPos);
-            player.transform.position = closestPoint;
-        }
-    }
-
-    bool AreAllBonesInside(ShadowThrower player)
-    {
-        if (!_zoneCollider.OverlapPoint(player.transform.position)) return false;
-        foreach (var bone in player.edgeBones)
-        {
-            if (!_zoneCollider.OverlapPoint(bone.transform.position)) return false;
-        }
+        if (!_col.OverlapPoint(player.transform.position)) return false;
+        foreach (var b in player.edgeBones)
+            if (b != null && !_col.OverlapPoint(b.transform.position)) return false;
         return true;
     }
 
-    // Reset player state if they leave (e.g., via Drag & Drop)
     void OnTriggerExit2D(Collider2D other)
     {
-        ShadowThrower player = other.GetComponent<ShadowThrower>();
-        if (player != null)
-        {
-            player.canMoveWASD = false;
-        }
+        SlimeThrower p = other.GetComponent<SlimeThrower>();
+        if (p != null) { p.RemoveShadow(_col); if (p.activeShadows.Count == 0) p.canMoveWASD = false; }
     }
 }
