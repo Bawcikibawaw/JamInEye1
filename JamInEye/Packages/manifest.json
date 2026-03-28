@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "com.unity.2d.animation": "10.2.2",
+    "com.brainfartstudio.autotile": "https://github.com/MitchellOpitz/Automatic-Rule-Tile-Generator.git",
     "com.unity.ai.navigation": "2.0.9",
     "com.unity.collab-proxy": "2.12.4",
     "com.unity.feature.2d": "2.0.1",

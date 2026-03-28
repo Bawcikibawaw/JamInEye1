@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.brainfartstudio.autotile": {
+      "version": "https://github.com/MitchellOpitz/Automatic-Rule-Tile-Generator.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "241f667b6d2547ccbfcabbb3f312f7a709108982"
+    },
     "com.unity.2d.animation": {
       "version": "10.2.2",
       "depth": 0,
