@@ -325,6 +325,7 @@ public class TilemapGroupedShadowBuilder : MonoBehaviour
         go.transform.SetParent(groupRoot, false);
         go.layer = shadowContainerLayerId;
         go.AddComponent<SpriteRenderer>();
+        go.AddComponent<ShadowZone>();
         return go;
     }
 
