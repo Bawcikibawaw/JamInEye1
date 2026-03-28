@@ -9,7 +9,7 @@ public class PlayerStats : MonoBehaviour
 
     [Header("HP & Power")]
     public float maxHP = 100f;
-    //public float maxHp
+    public float maxHpInDanger = 100f;
     public float currentHP;
 
     [Header("Shadow Benefits")]
@@ -49,6 +49,8 @@ public class PlayerStats : MonoBehaviour
             HandleOutsideShadow();
 
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
+        
+        if(inDanger) currentHP = Mathf.Clamp(currentHP, 0, maxHpInDanger);
 
         UpdateEyeColor();
 
@@ -93,12 +95,10 @@ public class PlayerStats : MonoBehaviour
         if (_shadowTimer >= 3)
         {
             inDanger = true;
-            maxHP = 100;
         }
         else
         {
-            inDanger = false;
-            maxHP = 70;
+            inDanger = false; 
         }
     }
 

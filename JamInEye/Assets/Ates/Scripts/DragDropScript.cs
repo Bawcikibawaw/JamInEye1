@@ -42,15 +42,51 @@ public class SlimeThrower : MonoBehaviour
     private bool _isDragging, _isFlying;
     private int _playerLayer, _wallLayer;
     private PlayerStats _stats;
+    
+    [Header("Shadow Collider Settings")]
+    public float normalColliderRadius = 0.3f;   // bone_9 radius normally
+    public float shadowColliderRadius = 1.2f;   // bone_9 radius inside shadow
+    
+    private CircleCollider2D _centerCollider;
+
 
     public bool IsDragging => _isDragging;
     public void SqueezeBones(float ratio) => _currentSqueeze = ratio;
+    
+    public void EnterShadowColliderMode()
+    {
+        // Grow bone_9 collider
+        if (_centerCollider != null)
+            _centerCollider.radius = shadowColliderRadius;
+
+        // Disable all edge bone colliders
+        foreach (var bone in edgeBones)
+        {
+            var col = bone.GetComponent<Collider2D>();
+            if (col != null) col.enabled = false;
+        }
+    }
+
+    public void ExitShadowColliderMode()
+    {
+        // Restore bone_9 collider
+        if (_centerCollider != null)
+            _centerCollider.radius = normalColliderRadius;
+
+        // Re-enable all edge bone colliders
+        foreach (var bone in edgeBones)
+        {
+            var col = bone.GetComponent<Collider2D>();
+            if (col != null) col.enabled = true;
+        }
+    }
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
         _mainSR = GetComponentInParent<SpriteRenderer>();
         _stats = GetComponent<PlayerStats>();
+        _centerCollider = GetComponent<CircleCollider2D>();
 
         _playerLayer = gameObject.layer;
         _wallLayer = LayerMask.NameToLayer("Walls");
@@ -93,10 +129,10 @@ public class SlimeThrower : MonoBehaviour
 
     private void UpdateVisualsAndMagneticPull()
     {
-        // 1. Transparency Fade
+        // 1. Transparency Fade — fade whenever inside a shadow, not just when swimming
         if (_mainSR != null)
         {
-            float targetAlpha = canMoveWASD ? swimmingAlpha : normalAlpha;
+            float targetAlpha = (activeShadows.Count > 0) ? swimmingAlpha : normalAlpha;
             _currentAlpha = Mathf.Lerp(_currentAlpha, targetAlpha, Time.deltaTime * 6f);
             Color c = _mainSR.color;
             c.a = _currentAlpha;
@@ -106,22 +142,19 @@ public class SlimeThrower : MonoBehaviour
         // 2. Squeeze transition
         _currentSqueeze = Mathf.Lerp(_currentSqueeze, 1.0f, Time.deltaTime * 4f);
 
-        // 3. ── THE MAGNETIC PULL ──
-        // If we aren't dragging, all bones MUST snap back to their circular home.
+        // 3. Magnetic pull
         if (!_isDragging)
         {
             for (int i = 0; i < edgeBones.Length; i++)
             {
                 Vector2 homePos = _initialOffsets[i] * _currentSqueeze;
-                
-                // Use elasticity to pull them back home like strong rubber bands
+            
                 edgeBones[i].transform.localPosition = Vector2.Lerp(
                     edgeBones[i].transform.localPosition, 
                     homePos, 
                     Time.deltaTime * boneElasticity
                 );
 
-                // Stop drifting bones from floating away during flight
                 if (!_isFlying) _edgeRBs[i].linearVelocity = Vector2.zero;
             }
         }
@@ -188,42 +221,52 @@ public class SlimeThrower : MonoBehaviour
         activeShadows.Clear();
         if (trajectoryLine != null) trajectoryLine.enabled = false;
     }
-
-    public void FreezeSlime()
-    {
-        _isFlying = false; 
-        _rb.linearVelocity = Vector2.zero;
-        if (_wallLayer != -1) Physics2D.IgnoreLayerCollision(_playerLayer, _wallLayer, false);
-        ToggleColliders(true);
-        for (int i = 0; i < edgeBones.Length; i++) {
-            edgeBones[i].transform.localPosition = _initialOffsets[i];
-            _edgeRBs[i].linearVelocity = Vector2.zero;
-        }
-    }
+    
 
     private void HandleWASD()
     {
         if (activeShadows.Count == 0) { canMoveWASD = false; return; }
-        float h = Input.GetAxisRaw("Horizontal"), v = Input.GetAxisRaw("Vertical");
-        Vector2 target = _rb.position + new Vector2(h, v).normalized * wasdSpeed * Time.deltaTime;
-        bool inside = false;
-        foreach (var s in activeShadows) if (s != null && s.OverlapPoint(target)) inside = true;
-        if (!inside && activeShadows.Count > 0) {
-            Vector2 closest = activeShadows[0].ClosestPoint(target);
-            Vector2 toCenter = ((Vector2)activeShadows[0].transform.position - closest).normalized;
-            target = closest + (toCenter * 0.2f);
-        }
-        _rb.MovePosition(target);
-    }
 
+        float h = Input.GetAxisRaw("Horizontal"), v = Input.GetAxisRaw("Vertical");
+        Vector2 inputDir = new Vector2(h, v).normalized;
+
+        // Apply movement force
+        if (inputDir != Vector2.zero)
+            _rb.AddForce(inputDir * wasdSpeed, ForceMode2D.Impulse);
+
+        // Damp velocity so it doesn't slide forever
+        _rb.linearVelocity *= 0.75f;
+
+        // Check if currently outside all shadows
+        bool inside = false;
+        foreach (var s in activeShadows)
+            if (s != null && s.OverlapPoint(_rb.position)) inside = true;
+
+        if (!inside && activeShadows.Count > 0)
+        {
+            // Find closest point on the nearest shadow and push back in
+            Collider2D nearest = activeShadows[0];
+            Vector2 closest = nearest.ClosestPoint(_rb.position);
+            Vector2 pushDir = (closest - _rb.position).normalized;
+
+            // Kill outward velocity and push back
+            _rb.linearVelocity = Vector2.zero;
+            _rb.AddForce(pushDir * wasdSpeed * 2f, ForceMode2D.Impulse);
+        }
+    }
+    
+    
     private void StartDragging()
     {
-        _isDragging = true; _isFlying = false; canMoveWASD = false;
-        _rb.isKinematic = true; _rb.linearVelocity = Vector2.zero;
+        _isDragging = true; _isFlying = false; canMoveWASD = false; 
+        _rb.linearVelocity = Vector2.zero;
         _dragStartWorld = GetMouseWorldPos();
         if (trajectoryLine != null) trajectoryLine.enabled = true;
         if (_wallLayer != -1) Physics2D.IgnoreLayerCollision(_playerLayer, _wallLayer, true);
         ToggleColliders(false);
+    
+        // Re-add all current shadows immediately after toggling colliders
+        // so the list is never cleared during a drag
     }
 
     private Vector2 GetMouseWorldPos() {
@@ -235,9 +278,9 @@ public class SlimeThrower : MonoBehaviour
         foreach (var b in edgeBones) b.GetComponent<Collider2D>().enabled = s;
     }
     void OnCollisionEnter2D(Collision2D col) { if (_isFlying) bounceGraceTimer = 0.25f; }
-    private void UpdateFlight() {
+    private void UpdateFlight() 
+    {
         _rb.linearVelocity *= (1f - Time.deltaTime * airDrag);
-        if (launchGraceTimer <= 0.4f && bounceGraceTimer <= 0 && _rb.linearVelocity.magnitude < stopThreshold) FreezeSlime();
     }
     public void AddShadow(Collider2D c) { if (!activeShadows.Contains(c)) activeShadows.Add(c); }
     public void RemoveShadow(Collider2D c) { activeShadows.Remove(c); }
