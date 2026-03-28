@@ -9,6 +9,7 @@ public class SlimeThrower : MonoBehaviour
     public float maxDragDistance = 4.0f;
     public float stopThreshold = 0.5f;
     public float airDrag = 1.5f;
+    public float jumpPowerCost = 20f;
 
     [Header("Magnetic Pull (Anti-Pancake)")]
     [Range(5, 60)] public float boneElasticity = 35f; // Higher = stiffer/rounder, lower = more jelly
@@ -40,6 +41,7 @@ public class SlimeThrower : MonoBehaviour
     private Vector2 _dragStartWorld;
     private bool _isDragging, _isFlying;
     private int _playerLayer, _wallLayer;
+    private PlayerStats _stats;
 
     public bool IsDragging => _isDragging;
     public void SqueezeBones(float ratio) => _currentSqueeze = ratio;
@@ -48,6 +50,7 @@ public class SlimeThrower : MonoBehaviour
     {
         _rb = GetComponent<Rigidbody2D>();
         _mainSR = GetComponentInParent<SpriteRenderer>();
+        _stats = GetComponent<PlayerStats>();
 
         _playerLayer = gameObject.layer;
         _wallLayer = LayerMask.NameToLayer("Walls");
@@ -152,6 +155,18 @@ public class SlimeThrower : MonoBehaviour
 
     private void Launch()
     {
+        
+        PlayerStats stats = GetComponent<PlayerStats>();
+    
+        // ── POWER CHECK ──
+        if (stats != null && !stats.ConsumeJumpPower(jumpPowerCost))
+        {
+            Debug.Log("Not enough power to jump!");
+            _isDragging = false;
+            if (trajectoryLine != null) trajectoryLine.enabled = false;
+            return; 
+        }
+        
         _isDragging = false;
         Vector2 delta = Vector2.ClampMagnitude(GetMouseWorldPos() - _dragStartWorld, maxDragDistance);
         Vector2 launchVel = -delta * launchForce;
