@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class SlimeThrower : MonoBehaviour
+public class ShadowThrower : MonoBehaviour
 {
     [Header("Flight Settings")]
     public float launchForce = 15f;
@@ -21,6 +21,10 @@ public class SlimeThrower : MonoBehaviour
     public LineRenderer trajectoryLine;
     public int trajectoryPoints = 25;
     public float trajectoryTimeStep = 0.06f;
+    
+    [Header("Shadow WASD Settings")]
+    public bool canMoveWASD = false;
+    public float wasdSpeed = 5f;
 
     [Header("Drag Deformation")]
     public float pullAngleWidth = 100f;
@@ -29,12 +33,11 @@ public class SlimeThrower : MonoBehaviour
 
     private Rigidbody2D _rb;
     private Collider2D _mainCollider;
-    private Collider2D[] _edgeColliders;
+    public Collider2D[] _edgeColliders;
     private Vector2 _dragStartMouse;
     private Vector2[] _initialLocalOffsets;
     private bool _isDragging;
     private bool _isFlying;
-    private float _flightTimer;
 
     void Start()
     {
@@ -61,16 +64,43 @@ public class SlimeThrower : MonoBehaviour
             UpdateFlight();
             return;
         }
+        
+        // --- WASD MOVEMENT ---
+        if (canMoveWASD && !_isDragging)
+        {
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveY = Input.GetAxisRaw("Vertical");
+            Vector2 moveDir = new Vector2(moveX, moveY).normalized;
+    
+            // MovePosition is the safest for physics, 
+            // but let's ensure the transform doesn't drift
+            Vector2 newPos = _rb.position + moveDir * wasdSpeed * Time.deltaTime;
+            _rb.MovePosition(newPos);
+    
+            // FORCE the Z to stay at your specific layer (e.g., 45)
+            Vector3 currentPos = transform.position;
+            currentPos.z = 45f; // Or whatever your preferred Z is
+            transform.position = currentPos;
+        }
 
         if (Input.GetMouseButtonDown(0)) StartDragging();
         if (Input.GetMouseButton(0) && _isDragging) UpdateDragging();
         if (Input.GetMouseButtonUp(0) && _isDragging) Launch();
     }
 
+    void LateUpdate()
+    {
+        void LateUpdate()
+        {
+            // This acts like a "Z-Anchor"
+            // No matter what physics or lerping does, 
+            // it forces the shadow back to its depth plane every frame.
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0f); 
+        }
+    }
+
     private void UpdateFlight()
     {
-        _flightTimer -= Time.deltaTime;
-
         ApplyDynamicDeformation();
 
         // STOP CONDITIONS: 
@@ -113,6 +143,7 @@ public class SlimeThrower : MonoBehaviour
     private void StartDragging()
     {
         _isDragging = true;
+        canMoveWASD = false; // Disable WASD as soon as we start aiming to leave
         _dragStartMouse = MouseToWorld();
         if (trajectoryLine != null) trajectoryLine.enabled = true;
         
@@ -174,7 +205,7 @@ public class SlimeThrower : MonoBehaviour
         }
     }
 
-    private void FreezeSlime()
+    public void FreezeSlime()
     {
         _isFlying = false;
         _isDragging = false;

@@ -13,6 +13,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/ShadowZone.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -88,7 +91,7 @@
       <updated>1774646915369</updated>
       <workItem from="1774646917782" duration="347000" />
       <workItem from="1774647292477" duration="11990000" />
-      <workItem from="1774664938719" duration="83000" />
+      <workItem from="1774664938719" duration="2522000" />
     </task>
     <servers />
   </component>
