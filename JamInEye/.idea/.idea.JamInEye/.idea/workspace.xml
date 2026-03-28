@@ -19,6 +19,8 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/HPBar.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/ShadowZone.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/WayPointMover.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/WayPointPath.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -102,7 +104,7 @@
       <workItem from="1774686459678" duration="14001000" />
       <workItem from="1774703546325" duration="4700000" />
       <workItem from="1774717240526" duration="8000" />
-      <workItem from="1774717268084" duration="6559000" />
+      <workItem from="1774717268084" duration="10411000" />
     </task>
     <servers />
   </component>
