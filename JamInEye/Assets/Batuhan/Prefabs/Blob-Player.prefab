@@ -1414,7 +1414,7 @@ GameObject:
   - component: {fileID: 5760147604129508523}
   m_Layer: 6
   m_Name: bone_9
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1557,15 +1557,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3783ab0a5e72d54fb4f06f1e060ec78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  launchForce: 10
-  maxDragDistance: 4
+  launchForce: 8
+  maxDragDistance: 6
   stopThreshold: 3
   airDrag: 0
   jumpPowerCost: 3
   boneElasticity: 35
   maxBoneDrift: 0.3
   canMoveWASD: 0
-  wasdSpeed: 10
+  wasdSpeed: 2
   activeShadows: []
   launchGraceTimer: 0
   bounceGraceTimer: 0
@@ -1583,6 +1583,14 @@ MonoBehaviour:
   trajectoryLine: {fileID: 3222684806320825575}
   trajectoryPoints: 2
   trajectoryTimeStep: 0.05
+  normalColliderRadius: 0.3
+  shadowColliderRadius: 1.2
+  dragBoneSpring: 280
+  dragBoneDamping: 2
+  dragBoneMaxForce: 80
+  dragBoneMaxSpeed: 120
+  dragAngleThreshold: 30
+  homeSpringMultiplier: 1
 --- !u!114 &5760147604129508523
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1599,6 +1607,7 @@ MonoBehaviour:
   healthyColor: {r: 1, g: 1, b: 1, a: 1}
   dangerColor: {r: 1, g: 0, b: 0, a: 1}
   maxHP: 70
+  maxHpInDanger: 100
   currentHP: 70
   shadowRegenRate: 20
   inDanger: 0
