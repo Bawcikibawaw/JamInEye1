@@ -1,8 +1,9 @@
-// LevelTrigger.cs — cleaned up, no FadeIn logic
+// LevelTrigger.cs
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections;
 
 public class LevelTrigger : MonoBehaviour
 {
@@ -11,6 +12,9 @@ public class LevelTrigger : MonoBehaviour
 
     [Header("Fade Settings")]
     public float fadeDuration = 0.5f;
+
+    [Header("Preload Trigger — assign the mid-level trigger object")]
+    public LevelPreloader preloader; // assign the preloader object in Inspector
 
     private bool _triggered = false;
     private Image _fadeImage;
@@ -26,17 +30,32 @@ public class LevelTrigger : MonoBehaviour
         if (other.GetComponent<SlimeThrower>() == null) return;
 
         _triggered = true;
-        FadeAndLoad();
+        StartCoroutine(FadeAndLoad());
     }
 
-    void FadeAndLoad()
+    IEnumerator FadeAndLoad()
     {
+        // Fade to black
+        _fadeImage.DOKill();
         _fadeImage.color = new Color(0f, 0f, 0f, 0f);
         _fadeImage.DOFade(1f, fadeDuration)
             .SetEase(Ease.InQuad)
-            .SetUpdate(true)
-            .OnComplete(() => SceneManager.LoadScene(nextSceneName));
-            // No FadeIn here — SceneFadeIn.cs handles that in the new scene
+            .SetUpdate(true);
+
+        yield return new WaitForSecondsRealtime(fadeDuration);
+
+        // If preloader has already started async loading, wait for it
+        // Otherwise load normally
+        if (preloader != null && preloader.AsyncOperation != null)
+        {
+            // Allow scene to activate — it was held at 0.9
+            preloader.AsyncOperation.allowSceneActivation = true;
+        }
+        else
+        {
+            // Preloader wasn't reached — load normally
+            SceneManager.LoadScene(nextSceneName);
+        }
     }
 
     Image GetOrCreateFadeImage()

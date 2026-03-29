@@ -18,6 +18,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/HPBar.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/LevelPreLoader.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/SceneFadeIn.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/ShadowZone.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/WayPointMover.cs" root0="FORCE_HIGHLIGHTING" />
@@ -109,7 +110,7 @@
       <workItem from="1774717268084" duration="20799000" />
       <workItem from="1774774829263" duration="332000" />
       <workItem from="1774775524468" duration="198000" />
-      <workItem from="1774775739406" duration="2185000" />
+      <workItem from="1774775739406" duration="2886000" />
     </task>
     <servers />
   </component>
