@@ -46,28 +46,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainMixerGroup: {fileID: 24300002, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
   sounds:
-  - name: SFXWind
-    clip: {fileID: 8300000, guid: 8aa07ba8a1828414e8a05fc0bfecded7, type: 3}
-    volume: 0.01
-    volumeVariance: 0
-    pitch: 1
-    pitchVariance: 0
-    loop: 1
-    playOnAwake: 1
-    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
-    onDifferentGO: 0
-    attachedObject: {fileID: 0}
-    attachedOnPlayer: 0
-    source: {fileID: 0}
-    minDistance: 1
-    maxDistance: 500
-    spatialBlend: 0
-  - name: AttackSkeleton
-    clip: {fileID: 8300000, guid: 0d76e94a4975f9642aa3222918200610, type: 3}
-    volume: 0.8
+  - name: BrightHit
+    clip: {fileID: 8300000, guid: 14c327d85858cff4c9e1145b39ccbf52, type: 3}
+    volume: 0.75
     volumeVariance: 0.1
     pitch: 1
-    pitchVariance: 0.2
+    pitchVariance: 0.1
     loop: 0
     playOnAwake: 0
     mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
@@ -78,12 +62,12 @@ MonoBehaviour:
     minDistance: 1
     maxDistance: 500
     spatialBlend: 0
-  - name: DeadSkeleton
-    clip: {fileID: 8300000, guid: c23512c415bae80489ca567198bf5549, type: 3}
-    volume: 0.8
+  - name: DarkHit
+    clip: {fileID: 8300000, guid: b81f65a3d9eba5647ae98a1a262c70f3, type: 3}
+    volume: 0.75
     volumeVariance: 0.1
     pitch: 1
-    pitchVariance: 0.2
+    pitchVariance: 0.1
     loop: 0
     playOnAwake: 0
     mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
@@ -94,12 +78,12 @@ MonoBehaviour:
     minDistance: 1
     maxDistance: 500
     spatialBlend: 0
-  - name: AttackSlime
-    clip: {fileID: 8300000, guid: 50df680cf41b0cc4a9c9b333d26e10e0, type: 3}
-    volume: 0.4
-    volumeVariance: 0.1
+  - name: FlySFX
+    clip: {fileID: 8300000, guid: ef19452658d26d146a42fa47931f0926, type: 3}
+    volume: 0.25
+    volumeVariance: 0.05
     pitch: 1
-    pitchVariance: 0.2
+    pitchVariance: 0.25
     loop: 0
     playOnAwake: 0
     mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
@@ -110,108 +94,28 @@ MonoBehaviour:
     minDistance: 1
     maxDistance: 500
     spatialBlend: 0
-  - name: DeadSlime
-    clip: {fileID: 8300000, guid: 810cb648b4f90b940bde6d6eb97193ec, type: 3}
-    volume: 0.8
-    volumeVariance: 0.1
-    pitch: 2
-    pitchVariance: 0.2
-    loop: 0
-    playOnAwake: 0
-    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
-    onDifferentGO: 0
-    attachedObject: {fileID: 0}
-    attachedOnPlayer: 0
-    source: {fileID: 0}
-    minDistance: 1
-    maxDistance: 500
-    spatialBlend: 0
-  - name: AttackPlayer
-    clip: {fileID: 8300000, guid: 6addf3e9f03e1d243b27de170bf86762, type: 3}
-    volume: 0.8
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.2
-    loop: 0
-    playOnAwake: 0
-    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
-    onDifferentGO: 0
-    attachedObject: {fileID: 0}
-    attachedOnPlayer: 0
-    source: {fileID: 0}
-    minDistance: 1
-    maxDistance: 500
-    spatialBlend: 0
-  - name: SFXGlassBreak
-    clip: {fileID: 8300000, guid: 82a29a7b9a3ca9748b6fae74a38d9237, type: 3}
-    volume: 0.2
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.2
-    loop: 0
-    playOnAwake: 0
-    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
-    onDifferentGO: 0
-    attachedObject: {fileID: 0}
-    attachedOnPlayer: 0
-    source: {fileID: 0}
-    minDistance: 1
-    maxDistance: 500
-    spatialBlend: 0
-  - name: AttackGhost
-    clip: {fileID: 8300000, guid: 0bec1ec1dc0cc9e4d814a05d405562ee, type: 3}
-    volume: 0.8
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.4
-    loop: 0
-    playOnAwake: 0
-    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
-    onDifferentGO: 0
-    attachedObject: {fileID: 0}
-    attachedOnPlayer: 0
-    source: {fileID: 0}
-    minDistance: 1
-    maxDistance: 500
-    spatialBlend: 0
-  - name: SFXPotionSuccess
-    clip: {fileID: 8300000, guid: aecb021e5100ba44ba2c9d7f7ffcb211, type: 3}
-    volume: 0.8
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.2
-    loop: 0
-    playOnAwake: 0
-    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
-    onDifferentGO: 0
-    attachedObject: {fileID: 0}
-    attachedOnPlayer: 0
-    source: {fileID: 0}
-    minDistance: 1
-    maxDistance: 500
-    spatialBlend: 0
-  - name: SFXItemAdded
-    clip: {fileID: 8300000, guid: d6e8f40a2032c644ea9fea2479c30c29, type: 3}
-    volume: 0.5
-    volumeVariance: 0.1
-    pitch: 1
-    pitchVariance: 0.2
-    loop: 0
-    playOnAwake: 0
-    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
-    onDifferentGO: 0
-    attachedObject: {fileID: 0}
-    attachedOnPlayer: 0
-    source: {fileID: 0}
-    minDistance: 1
-    maxDistance: 500
-    spatialBlend: 0
-  - name: SFXPotionPickUp
-    clip: {fileID: 8300000, guid: 835ccdafa3ea42042b2e2c9a26394548, type: 3}
+  - name: ShootSFX
+    clip: {fileID: 8300000, guid: a91e38ab43e2c93459b485419c662085, type: 3}
     volume: 0.5
     volumeVariance: 0.1
     pitch: 1.5
-    pitchVariance: 0.2
+    pitchVariance: 0.1
+    loop: 0
+    playOnAwake: 0
+    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
+    onDifferentGO: 0
+    attachedObject: {fileID: 0}
+    attachedOnPlayer: 0
+    source: {fileID: 0}
+    minDistance: 1
+    maxDistance: 500
+    spatialBlend: 0
+  - name: RelaseSFX
+    clip: {fileID: 8300000, guid: b9f63c696f3a3324fbdaafad32eb2f3d, type: 3}
+    volume: 0.75
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
     loop: 0
     playOnAwake: 0
     mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
