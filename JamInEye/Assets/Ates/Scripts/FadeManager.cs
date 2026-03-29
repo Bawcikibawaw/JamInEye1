@@ -24,6 +24,9 @@ public class FadeManager : MonoBehaviour
     private Image _fadeImage;
     public float defaultFadeDuration = 0.5f;
 
+    // ADJUSTMENT: Track fading state for the Pause Menu to check
+    public bool IsFading { get; private set; } 
+
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void Init() { var i = Instance; }
 
@@ -53,14 +56,16 @@ public class FadeManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // When a new scene loads, it's usually black. 
-        // We call FadeIn which will unpause the game when finished.
         FadeIn(defaultFadeDuration);
     }
 
     public Tween FadeOut(float duration)
     {
+        IsFading = true; // ADJUSTMENT: Set state
         _fadeImage.DOKill();
+        
+        // ADJUSTMENT: Force alpha to 0 before starting to ensure the tween plays
+        _fadeImage.color = new Color(0, 0, 0, 0); 
         _fadeImage.raycastTarget = true;
 
         // ── TIME FREEZE ──
@@ -71,15 +76,22 @@ public class FadeManager : MonoBehaviour
 
     public void FadeIn(float duration)
     {
+        IsFading = true; // ADJUSTMENT: Set state
         _fadeImage.DOKill();
         
-        // We keep time frozen during the FadeIn animation
-        // and only unpause once the screen is clear.
+        // ADJUSTMENT: Force alpha to 1 before starting
+        _fadeImage.color = new Color(0, 0, 0, 1);
+
         _fadeImage.DOFade(0f, duration).SetUpdate(true).OnComplete(() => {
             _fadeImage.raycastTarget = false;
+            IsFading = false; // ADJUSTMENT: Reset state
             
             // ── RESUME TIME ──
-            Time.timeScale = 1f; 
+            // ADJUSTMENT: Only resume if the player hasn't manually paused via ESC
+            if (!PauseMenu.IsPaused)
+            {
+                Time.timeScale = 1f; 
+            }
         });
     }
 }

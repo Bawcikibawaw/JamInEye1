@@ -20,8 +20,11 @@
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/FadeManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/HPBar.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/LevelPreLoader.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/PauseMenu.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/SceneFadeIn.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/ShadowZone.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/UIManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/VoiceSettings.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/WayPointMover.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Ates/Scripts/WayPointPath.cs" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -112,7 +115,7 @@
       <workItem from="1774774829263" duration="332000" />
       <workItem from="1774775524468" duration="198000" />
       <workItem from="1774775739406" duration="6054000" />
-      <workItem from="1774783026406" duration="2612000" />
+      <workItem from="1774783026406" duration="6052000" />
     </task>
     <servers />
   </component>
