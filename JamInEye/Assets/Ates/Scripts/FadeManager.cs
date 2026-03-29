@@ -48,13 +48,13 @@ public class FadeManager : MonoBehaviour
         rt.sizeDelta = Vector2.zero;
         rt.anchoredPosition = Vector2.zero;
 
-        // ── THE FIX: Listen for scene changes ──
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // Whenever a new scene starts, automatically fade in
+        // When a new scene loads, it's usually black. 
+        // We call FadeIn which will unpause the game when finished.
         FadeIn(defaultFadeDuration);
     }
 
@@ -62,14 +62,24 @@ public class FadeManager : MonoBehaviour
     {
         _fadeImage.DOKill();
         _fadeImage.raycastTarget = true;
+
+        // ── TIME FREEZE ──
+        Time.timeScale = 0f; 
+
         return _fadeImage.DOFade(1f, duration).SetUpdate(true);
     }
 
     public void FadeIn(float duration)
     {
         _fadeImage.DOKill();
+        
+        // We keep time frozen during the FadeIn animation
+        // and only unpause once the screen is clear.
         _fadeImage.DOFade(0f, duration).SetUpdate(true).OnComplete(() => {
             _fadeImage.raycastTarget = false;
+            
+            // ── RESUME TIME ──
+            Time.timeScale = 1f; 
         });
     }
 }
