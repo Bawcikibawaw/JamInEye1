@@ -349,4 +349,24 @@ public class SlimeThrower : MonoBehaviour
             p += vel * trajectoryTimeStep;
         }
     }
+    public void ForceBonesToSqueeze(float squeezeRatio, float tuckSpeed)
+{
+    // Update the visual ratio so it seamlessly transitions back later
+    _currentSqueeze = squeezeRatio; 
+    
+    for (int i = 0; i < edgeBones.Length; i++)
+    {
+        if (_edgeRBs[i] == null) continue;
+
+        // 1. Kill residual velocity so the spring physics don't fight the suction
+        _edgeRBs[i].linearVelocity = Vector2.Lerp(_edgeRBs[i].linearVelocity, Vector2.zero, Time.deltaTime * tuckSpeed);
+
+        // 2. Calculate the tightly squeezed target position
+        Vector2 targetWorld = transform.TransformPoint(_initialOffsets[i] * squeezeRatio);
+
+        // 3. Forcefully move the bone towards the squeezed position
+        _edgeRBs[i].MovePosition(Vector2.Lerp(_edgeRBs[i].position, targetWorld, Time.deltaTime * tuckSpeed));
+    }
+}
+
 }

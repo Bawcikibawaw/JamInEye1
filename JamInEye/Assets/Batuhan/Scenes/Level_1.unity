@@ -218,6 +218,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &8797273
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -404,6 +405,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &29670021
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -560,6 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &34745033
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -714,6 +717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &54128173
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -904,6 +908,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &79914686
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1058,6 +1063,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &80437703
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1246,6 +1252,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &95683856
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1401,6 +1408,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &99313757
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1556,6 +1564,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &107493001
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1711,6 +1720,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &117049303
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1900,6 +1910,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &164164877
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2055,6 +2066,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &168017833
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2210,6 +2222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &169428690
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2401,6 +2414,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &225772975
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2555,6 +2569,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &227807786
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2711,6 +2726,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &236339269
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2866,6 +2882,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &257789839
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -3020,6 +3037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &259295194
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10251,6 +10269,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &280485759
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10440,6 +10459,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &290856420
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10805,6 +10825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &333593896
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10961,6 +10982,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &391309831
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11116,6 +11138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &403386722
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11270,6 +11293,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &430392325
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11424,6 +11448,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &432250519
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -11676,6 +11701,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &509165268
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12453,6 +12479,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &528980482
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12660,6 +12687,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &546740369
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12815,6 +12843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &546898671
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12969,6 +12998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &551829634
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13202,6 +13232,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &584637188
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13356,6 +13387,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &590333451
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13510,6 +13542,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &590585691
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13664,6 +13697,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &595574458
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13818,6 +13852,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &601941526
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13972,6 +14007,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &630268666
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14126,6 +14162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &631101286
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14280,6 +14317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &635163363
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14436,6 +14474,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &647175388
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14591,6 +14630,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &652230819
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14944,6 +14984,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &694895767
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15098,6 +15139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &703534583
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15252,6 +15294,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &729818310
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15407,6 +15450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &785977142
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15663,6 +15707,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &811974326
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -15818,6 +15863,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &824505600
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16010,6 +16056,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &830608634
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16167,6 +16214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &832469148
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -16321,6 +16369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &835562145
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17223,6 +17272,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &860142288
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17377,6 +17427,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &873907183
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17534,6 +17585,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &874897689
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17722,6 +17774,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &905744548
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -17876,6 +17929,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &907693984
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18030,6 +18084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &915974594
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18184,6 +18239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &930425800
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18549,6 +18605,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &976023881
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18739,6 +18796,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &995782224
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18930,6 +18988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1017812185
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19133,6 +19192,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1031823852
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19287,6 +19347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1036487207
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19478,6 +19539,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1061400902
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19633,6 +19695,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1066579741
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19787,6 +19850,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1073009987
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -19941,6 +20005,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1083500378
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20136,6 +20201,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1103808498
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20290,6 +20356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1119887732
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20444,6 +20511,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1121325557
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20598,6 +20666,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1123498352
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20754,6 +20823,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1130098856
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -20908,6 +20978,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1130378631
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21063,6 +21134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1180306172
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21217,6 +21289,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1183565952
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21371,6 +21444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1195477161
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21532,6 +21606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1246211408
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21686,6 +21761,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1252836086
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -21943,6 +22019,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1277677060
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -22097,6 +22174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1287865773
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -22251,6 +22329,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1292618521
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -22407,6 +22486,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1307973253
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -22731,6 +22811,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1322466892
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -22885,6 +22966,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1324231310
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23210,6 +23292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1381858296
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23364,6 +23447,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1392262135
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23519,6 +23603,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1403040374
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23673,6 +23758,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1403405368
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -23827,6 +23913,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1403658196
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24026,6 +24113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1426378217
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24180,6 +24268,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1429131570
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24335,6 +24424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1429346569
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24490,6 +24580,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1434072966
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24644,6 +24735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1440483659
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24842,6 +24934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1456969646
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -24996,6 +25089,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1470065347
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -25150,6 +25244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1513881203
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -25336,6 +25431,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1527933373
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32418,6 +32514,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1530455801
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32619,6 +32716,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1547814780
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32775,6 +32873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1556347926
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32929,6 +33028,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1578701021
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33083,6 +33183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1613774376
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33277,6 +33378,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1653108474
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33431,6 +33533,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1656277306
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33585,6 +33688,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1664099341
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33739,6 +33843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1705837198
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -33893,6 +33998,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1710414381
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34116,6 +34222,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1751747014
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34270,6 +34377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1753764614
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34424,6 +34532,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1782553849
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -34615,6 +34724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1802001863
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -36974,6 +37084,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1821741736
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37128,6 +37239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1859924440
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37285,6 +37397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1866118497
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37439,6 +37552,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1869605557
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37634,6 +37748,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1939117938
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37788,6 +37903,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1940000904
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37942,6 +38058,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1960411258
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38096,6 +38213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1963324226
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38251,6 +38369,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1965918406
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38406,6 +38525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1970317388
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38560,6 +38680,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1985783754
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38714,6 +38835,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1993333560
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -38868,6 +38990,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &1993868663
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39143,6 +39266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &2039103124
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39333,6 +39457,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &2128984744
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39488,6 +39613,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &2139640038
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39643,6 +39769,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shadowBrakingForce: 45
   suctionSpeed: 10
+  customAlignmentPoint: {fileID: 0}
 --- !u!212 &2139905957
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-// ShadowZone.cs
 using UnityEngine;
 
 public class ShadowZone : MonoBehaviour
@@ -6,6 +5,10 @@ public class ShadowZone : MonoBehaviour
     [Header("Shadow Physics")]
     public float shadowBrakingForce = 45f;
     public float suctionSpeed = 10f;
+
+    [Header("Alignment")]
+    [Tooltip("Optional: Assign a child object to define the exact center point. If empty, uses the collider's center.")]
+    public Transform customAlignmentPoint; // <-- Added this
 
     private Collider2D _zoneCollider;
 
@@ -51,10 +54,21 @@ public class ShadowZone : MonoBehaviour
         }
         else if (_zoneCollider.OverlapPoint(player.transform.position))
         {
-            Vector2 targetXY = (Vector2)transform.position;
+            Vector2 targetXY;
+            if (customAlignmentPoint != null)
+            {
+                targetXY = customAlignmentPoint.position;
+            }
+            else
+            {
+                targetXY = _zoneCollider.bounds.center;
+            }
 
-            player.SqueezeBones(0.6f);
+            // Move the central body
             rb.MovePosition(Vector2.Lerp(rb.position, targetXY, Time.deltaTime * suctionSpeed));
+
+            // NEW: Aggressively tuck the bones in (0.3f ratio) slightly faster than the body moves
+            player.ForceBonesToSqueeze(0.3f, suctionSpeed * 1.5f);
 
             if (Vector2.Distance(rb.position, targetXY) < 0.15f && AreAllBonesInside(player))
                 player.canMoveWASD = true;
