@@ -1,11 +1,11 @@
+// PlayerStats.cs
 using UnityEngine;
-using UnityEngine.UI;
 using DG.Tweening;
 
 public class PlayerStats : MonoBehaviour
 {
     [Header("Eye Visuals")]
-    public SpriteRenderer eyeRenderer; // Drag the Eye child object here
+    public SpriteRenderer eyeRenderer;
     public Color healthyColor = Color.white;
     public Color dangerColor = Color.red;
     private Transform _transform;
@@ -19,15 +19,14 @@ public class PlayerStats : MonoBehaviour
     [Header("Shadow Benefits")]
     public float shadowRegenRate = 20f;
     public bool inDanger = false;
- 
 
     [Header("Sun Penalty (The Cliffhangers)")]
     public float sunTickDamageBase = 12f;
-    public float penaltyIncreaseRate = 1.5f; 
-    public float maxShadowTime = 8f;         
-    
+    public float penaltyIncreaseRate = 1.5f;
+    public float maxShadowTime = 8f;
+
     private float _currentSunMultiplier = 1f;
-    private float _shadowTimer = 0f;
+    public float _shadowTimer = 0f;
     private Collider2D _lastShadow;
     private SlimeThrower _mover;
     private bool _isDead = false;
@@ -39,8 +38,8 @@ public class PlayerStats : MonoBehaviour
         _transform = GetComponent<Transform>();
         _parentTransform = transform.parent;
 
-        // Auto-find eyes if not assigned
-        if (eyeRenderer == null) eyeRenderer = GetComponentInChildren<SpriteRenderer>();
+        if (eyeRenderer == null)
+            eyeRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
     void Update()
@@ -55,40 +54,26 @@ public class PlayerStats : MonoBehaviour
             HandleOutsideShadow();
 
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
-
         if (inDanger) currentHP = Mathf.Clamp(currentHP, 0, maxHpInDanger);
 
         UpdateEyeColor();
 
-        if (currentHP <= 0) Die(inShadow ? "THE DARKNESS CONSUMED YOU" : "VAPORIZED BY SUNLIGHT");
+        if (currentHP <= 0)
+            Die(inShadow ? "THE DARKNESS CONSUMED YOU" : "VAPORIZED BY SUNLIGHT");
 
-        if (_isDead)
-        {
-            DOVirtual.DelayedCall(2f, () =>
-            {
-                Respawn();
-            });
-        }
+        if (_isDead) DOVirtual.DelayedCall(3f, () => {
+            Respawn();
+        });
     }
-
 
     private void UpdateEyeColor()
     {
         if (eyeRenderer == null) return;
 
-        Color targetColor = healthyColor;
+        Color targetColor = (currentHP < maxHP * 0.3f || _currentSunMultiplier > 4f)
+            ? dangerColor
+            : healthyColor;
 
-        // ── COLOR PRIORITY ──
-        // 1. DANGER (Low HP or massive Sun Debt)
-        if (currentHP < (maxHP * 0.3f) || _currentSunMultiplier > 4f)
-        {
-            targetColor = dangerColor;
-        }
-        else
-        {
-            targetColor = healthyColor;
-        }
-        
         eyeRenderer.color = Color.Lerp(eyeRenderer.color, targetColor, Time.deltaTime * 5f);
     }
 
@@ -103,18 +88,11 @@ public class PlayerStats : MonoBehaviour
 
         currentHP += shadowRegenRate * Time.deltaTime;
         _currentSunMultiplier += penaltyIncreaseRate * Time.deltaTime;
-        
+
         _shadowTimer += Time.deltaTime;
         if (_shadowTimer >= maxShadowTime) currentHP = 0;
 
-        if (_shadowTimer >= 3)
-        {
-            inDanger = true;
-        }
-        else
-        {
-            inDanger = false; 
-        }
+        inDanger = _shadowTimer >= 3;
     }
 
     private void HandleOutsideShadow()
@@ -145,10 +123,33 @@ public class PlayerStats : MonoBehaviour
 
     private void Respawn()
     {
+        inDanger = false;
+        _shadowTimer = 0f;
+        _currentSunMultiplier = 1f;
         _isDead = false;
-        _mover.enabled = true;
-        if (eyeRenderer != null) eyeRenderer.color = Color.white; // alive
+        currentHP = maxHP;
+
+        // ── THE PHYSICS RESET ──
+        // Call the new cleanup function before starting the engine
+        if (_mover != null)
+        {
+            _mover.ResetPhysicsState();
+            _mover.enabled = true;
+        }
+
+        if (eyeRenderer != null)
+            eyeRenderer.color = healthyColor;
     }
-    
-    
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("BrightObs"))
+            Die("Beyaz");
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("BrightObs"))
+            Respawn();
+    }
 }
