@@ -126,5 +126,132 @@ MonoBehaviour:
     minDistance: 1
     maxDistance: 500
     spatialBlend: 0
+  - name: Music1
+    clip: {fileID: 8300000, guid: 55988c188a8a4324b9ab062cee6e1ff0, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    playOnAwake: 0
+    mixerGroup: {fileID: -2450395280441171215, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
+    onDifferentGO: 0
+    attachedObject: {fileID: 0}
+    attachedOnPlayer: 0
+    source: {fileID: 0}
+    minDistance: 1
+    maxDistance: 500
+    spatialBlend: 0
+  - name: Music1-Loop
+    clip: {fileID: 8300000, guid: 8e295a7d8c304774e9f604b2904936a4, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    playOnAwake: 0
+    mixerGroup: {fileID: -2450395280441171215, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
+    onDifferentGO: 0
+    attachedObject: {fileID: 0}
+    attachedOnPlayer: 0
+    source: {fileID: 0}
+    minDistance: 1
+    maxDistance: 500
+    spatialBlend: 0
+  - name: Music2
+    clip: {fileID: 8300000, guid: fe600f74fce0e504ea3b12f0628171a8, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    playOnAwake: 0
+    mixerGroup: {fileID: -2450395280441171215, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
+    onDifferentGO: 0
+    attachedObject: {fileID: 0}
+    attachedOnPlayer: 0
+    source: {fileID: 0}
+    minDistance: 1
+    maxDistance: 500
+    spatialBlend: 0
+  - name: Music3
+    clip: {fileID: 8300000, guid: cc760601b807b2e4887dd0b0e93a6e0e, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    playOnAwake: 0
+    mixerGroup: {fileID: -2450395280441171215, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
+    onDifferentGO: 0
+    attachedObject: {fileID: 0}
+    attachedOnPlayer: 0
+    source: {fileID: 0}
+    minDistance: 1
+    maxDistance: 500
+    spatialBlend: 0
+  - name: Music4
+    clip: {fileID: 8300000, guid: 1bbf67505e07349479025bf99307fdda, type: 3}
+    volume: 0.75
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0
+    loop: 0
+    playOnAwake: 0
+    mixerGroup: {fileID: -2450395280441171215, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
+    onDifferentGO: 0
+    attachedObject: {fileID: 0}
+    attachedOnPlayer: 0
+    source: {fileID: 0}
+    minDistance: 1
+    maxDistance: 500
+    spatialBlend: 0
+  - name: Music4
+    clip: {fileID: 8300000, guid: 1bbf67505e07349479025bf99307fdda, type: 3}
+    volume: 0.75
+    volumeVariance: 0.1
+    pitch: 1
+    pitchVariance: 0.1
+    loop: 0
+    playOnAwake: 0
+    mixerGroup: {fileID: -2450395280441171215, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
+    onDifferentGO: 0
+    attachedObject: {fileID: 0}
+    attachedOnPlayer: 0
+    source: {fileID: 0}
+    minDistance: 1
+    maxDistance: 500
+    spatialBlend: 0
   fadeInTime: 0
   fadeOutTime: 0
+  musicQueues:
+  - queueName: FirstTrack
+    trackNames:
+    - Music1
+    - Music2
+    - Music3
+    - Music4
+  - queueName: Track1
+    trackNames:
+    - Music1-Loop
+    - Music3
+    - Music2
+    - Music4
+  - queueName: Track2
+    trackNames:
+    - Music1-Loop
+    - Music3
+    - Music4
+    - Music2
+  - queueName: Track3
+    trackNames:
+    - Music1-Loop
+    - Music4
+    - Music3
+    - Music2
+  - queueName: Track4
+    trackNames:
+    - Music1-Loop
+    - Music2
+    - Music4
+    - Music3

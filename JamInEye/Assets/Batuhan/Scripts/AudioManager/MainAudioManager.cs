@@ -234,24 +234,29 @@ public class MainAudioManager : MonoBehaviour
             Debug.LogWarning("Music Queue: " + queueName + " not found!");
             return;
         }
-        Debug.Log("Playing queue: " + queueToPlay.queueName);
-        // Stop any currently playing queue before starting a new one
-        StopCurrentQueue();
 
-        // Start processing the new queue
+        // PREWARM: Load the first track of the new queue into memory immediately
+        if (queueToPlay.trackNames.Length > 0)
+        {
+            Sound firstSound = Array.Find(sounds, item => item.name == queueToPlay.trackNames[0]);
+            if (firstSound != null && firstSound.clip != null && firstSound.clip.loadState != AudioDataLoadState.Loaded)
+            {
+                firstSound.clip.LoadAudioData();
+            }
+        }
+
+        StopCurrentQueue();
         activeQueueCoroutine = StartCoroutine(ProcessQueueCoroutine(queueToPlay));
     }
 
     public void StopCurrentQueue()
     {
-        // Stop the logic that advances to the next track
         if (activeQueueCoroutine != null)
         {
             StopCoroutine(activeQueueCoroutine);
             activeQueueCoroutine = null;
         }
 
-        // Fade out the currently playing track from the queue
         if (!string.IsNullOrEmpty(currentQueueTrack))
         {
             float fadeOut = fadeOutTime > 0 ? fadeOutTime : 1f;
@@ -288,8 +293,8 @@ public class MainAudioManager : MonoBehaviour
             currentQueueTrack = trackName;
 
             // Play the track using our fade-in method (defaults to 1 second if fadeInTime isn't set)
-            float fadeIn = fadeInTime > 0 ? fadeInTime : 1f;
-            Play(trackName, fadeIn);
+            //float fadeIn = fadeInTime > 0 ? fadeInTime : 1f;
+            Play(trackName);
 
             // Wait until this specific track finishes playing
             // Using WaitWhile checks every frame if the audio source is still playing
