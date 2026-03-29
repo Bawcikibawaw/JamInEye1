@@ -7,6 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class MainAudioManager : MonoBehaviour
 {
+    [System.Serializable]
+    public class MusicQueue
+    {
+        public string queueName;
+        [Tooltip("The names of the Sounds exactly as they appear in the sounds array.")]
+        public string[] trackNames;
+    }
+
     public static MainAudioManager Instance;
 
     public AudioMixerGroup mainMixerGroup;
@@ -15,10 +23,15 @@ public class MainAudioManager : MonoBehaviour
     public float fadeInTime;
     public float fadeOutTime;
 
+    public MusicQueue[] musicQueues;
+
     private List<Sound> unassignedPlayerSounds = new List<Sound>();
 
     // NEW: Dictionary to track active fades and prevent them from overlapping
     private Dictionary<string, Coroutine> activeFades = new Dictionary<string, Coroutine>();
+
+    private Coroutine activeQueueCoroutine;
+    private string currentQueueTrack;
 
     void Awake()
     {
@@ -54,7 +67,8 @@ public class MainAudioManager : MonoBehaviour
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        //Play("MainSong");
+        PlayQueue("FirstTrack");
+        //Play("Music1");
     }
 
     private void OnDestroy()
@@ -211,6 +225,81 @@ public class MainAudioManager : MonoBehaviour
         s.source.volume = s.volume;
     }
 
+    public void PlayQueue(string queueName)
+    {
+        MusicQueue queueToPlay = Array.Find(musicQueues, q => q.queueName == queueName);
+
+        if (queueToPlay == null)
+        {
+            Debug.LogWarning("Music Queue: " + queueName + " not found!");
+            return;
+        }
+        Debug.Log("Playing queue: " + queueToPlay.queueName);
+        // Stop any currently playing queue before starting a new one
+        StopCurrentQueue();
+
+        // Start processing the new queue
+        activeQueueCoroutine = StartCoroutine(ProcessQueueCoroutine(queueToPlay));
+    }
+
+    public void StopCurrentQueue()
+    {
+        // Stop the logic that advances to the next track
+        if (activeQueueCoroutine != null)
+        {
+            StopCoroutine(activeQueueCoroutine);
+            activeQueueCoroutine = null;
+        }
+
+        // Fade out the currently playing track from the queue
+        if (!string.IsNullOrEmpty(currentQueueTrack))
+        {
+            float fadeOut = fadeOutTime > 0 ? fadeOutTime : 1f;
+            Stop(currentQueueTrack, fadeOut);
+            currentQueueTrack = "";
+        }
+    }
+
+    public void PlayRandomQueue()
+    {
+        if (musicQueues == null || musicQueues.Length == 0)
+        {
+            Debug.LogWarning("No music queues available to play randomly!");
+            return;
+        }
+
+        int randomIndex = UnityEngine.Random.Range(1, musicQueues.Length);
+        Debug.Log("Playing random queue: " + musicQueues[randomIndex].queueName);
+        PlayQueue(musicQueues[randomIndex].queueName);
+    }
+
+    private IEnumerator ProcessQueueCoroutine(MusicQueue queue)
+    {
+        foreach (string trackName in queue.trackNames)
+        {
+            Sound s = Array.Find(sounds, item => item.name == trackName);
+
+            if (s == null)
+            {
+                Debug.LogWarning($"Track '{trackName}' in Queue '{queue.queueName}' not found. Skipping.");
+                continue;
+            }
+
+            currentQueueTrack = trackName;
+
+            // Play the track using our fade-in method (defaults to 1 second if fadeInTime isn't set)
+            float fadeIn = fadeInTime > 0 ? fadeInTime : 1f;
+            Play(trackName, fadeIn);
+
+            // Wait until this specific track finishes playing
+            // Using WaitWhile checks every frame if the audio source is still playing
+            yield return new WaitWhile(() => s.source != null && s.source.isPlaying);
+        }
+
+        // If the loop finishes, the queue is complete. Play a random queue next!
+        currentQueueTrack = "";
+        PlayRandomQueue();
+    }
     public void PlayAtLocation(string sound, Vector3 pos, float spatialBlendValue = 1f, float minRangeValue = 1, float maxRangeValue = 10)
     {
         Debug.Log(sound + " sound is playing");

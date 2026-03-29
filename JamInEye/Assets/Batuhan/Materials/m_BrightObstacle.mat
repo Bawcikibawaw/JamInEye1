@@ -25,6 +25,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - ALPHACUTOFF_ON
   - GLITCH_ON
   - GLOW_ON
   - ROUNDWAVEUV_ON
@@ -147,9 +148,9 @@ Material:
     m_Ints: []
     m_Floats:
     - _AddPrecomputedVelocity: 0
-    - _Alpha: 1
+    - _Alpha: 0.896
     - _AlphaClip: 0
-    - _AlphaCutoffValue: 0.25
+    - _AlphaCutoffValue: 0.799
     - _AlphaOutlineBlend: 1
     - _AlphaOutlineGlow: 5
     - _AlphaOutlineMinAlpha: 0
