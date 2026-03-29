@@ -234,24 +234,29 @@ public class MainAudioManager : MonoBehaviour
             Debug.LogWarning("Music Queue: " + queueName + " not found!");
             return;
         }
-        Debug.Log("Playing queue: " + queueToPlay.queueName);
-        // Stop any currently playing queue before starting a new one
-        StopCurrentQueue();
 
-        // Start processing the new queue
+        // PREWARM: Load the first track of the new queue into memory immediately
+        if (queueToPlay.trackNames.Length > 0)
+        {
+            Sound firstSound = Array.Find(sounds, item => item.name == queueToPlay.trackNames[0]);
+            if (firstSound != null && firstSound.clip != null && firstSound.clip.loadState != AudioDataLoadState.Loaded)
+            {
+                firstSound.clip.LoadAudioData();
+            }
+        }
+
+        StopCurrentQueue();
         activeQueueCoroutine = StartCoroutine(ProcessQueueCoroutine(queueToPlay));
     }
 
     public void StopCurrentQueue()
     {
-        // Stop the logic that advances to the next track
         if (activeQueueCoroutine != null)
         {
             StopCoroutine(activeQueueCoroutine);
             activeQueueCoroutine = null;
         }
 
-        // Fade out the currently playing track from the queue
         if (!string.IsNullOrEmpty(currentQueueTrack))
         {
             float fadeOut = fadeOutTime > 0 ? fadeOutTime : 1f;
@@ -262,41 +267,53 @@ public class MainAudioManager : MonoBehaviour
 
     public void PlayRandomQueue()
     {
-        if (musicQueues == null || musicQueues.Length == 0)
-        {
-            Debug.LogWarning("No music queues available to play randomly!");
-            return;
-        }
+        if (musicQueues == null || musicQueues.Length == 0) return;
 
-        int randomIndex = UnityEngine.Random.Range(1, musicQueues.Length);
-        Debug.Log("Playing random queue: " + musicQueues[randomIndex].queueName);
+        int randomIndex = UnityEngine.Random.Range(0, musicQueues.Length);
         PlayQueue(musicQueues[randomIndex].queueName);
     }
 
     private IEnumerator ProcessQueueCoroutine(MusicQueue queue)
     {
-        foreach (string trackName in queue.trackNames)
+        for (int i = 0; i < queue.trackNames.Length; i++)
         {
+            string trackName = queue.trackNames[i];
             Sound s = Array.Find(sounds, item => item.name == trackName);
 
-            if (s == null)
-            {
-                Debug.LogWarning($"Track '{trackName}' in Queue '{queue.queueName}' not found. Skipping.");
-                continue;
-            }
+            if (s == null) continue;
 
             currentQueueTrack = trackName;
-
-            // Play the track using our fade-in method (defaults to 1 second if fadeInTime isn't set)
             float fadeIn = fadeInTime > 0 ? fadeInTime : 1f;
+            float crossfade = fadeOutTime > 0 ? fadeOutTime : 1f;
+
+            // PREWARM: Load the NEXT track into memory while this one is about to play
+            if (i + 1 < queue.trackNames.Length)
+            {
+                Sound nextSound = Array.Find(sounds, item => item.name == queue.trackNames[i + 1]);
+                if (nextSound != null && nextSound.clip != null && nextSound.clip.loadState != AudioDataLoadState.Loaded)
+                {
+                    nextSound.clip.LoadAudioData();
+                }
+            }
+
             Play(trackName, fadeIn);
 
-            // Wait until this specific track finishes playing
-            // Using WaitWhile checks every frame if the audio source is still playing
-            yield return new WaitWhile(() => s.source != null && s.source.isPlaying);
+            // CALCULATE EXACT WAIT TIME: We wait for the track length MINUS the crossfade time
+            float trackDuration = s.clip.length / (s.pitch > 0 ? s.pitch : 1f);
+            float waitTime = trackDuration - crossfade;
+
+            // Safety catch for very short sound effects
+            if (waitTime <= 0) waitTime = trackDuration * 0.8f;
+
+            // Wait for exactly that amount of time
+            yield return new WaitForSeconds(waitTime);
+
+            // Tell THIS track to fade out. Because the loop continues immediately, 
+            // the NEXT track will start fading in at the exact same moment!
+            Stop(trackName, crossfade);
         }
 
-        // If the loop finishes, the queue is complete. Play a random queue next!
+        // Loop finished, pick a new queue seamlessly
         currentQueueTrack = "";
         PlayRandomQueue();
     }

@@ -301,6 +301,8 @@ public class SlimeThrower : MonoBehaviour
         if (trajectoryLine != null) trajectoryLine.enabled = true;
         if (_wallLayer != -1) Physics2D.IgnoreLayerCollision(_playerLayer, _wallLayer, true);
         ToggleColliders(false);
+        MainAudioManager.Instance.Play("ShootSFX");
+
     }
 
     private Vector2 GetDragDeltaWorldLike()
