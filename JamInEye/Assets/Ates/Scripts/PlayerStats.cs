@@ -1,11 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
+
 public class PlayerStats : MonoBehaviour
 {
     [Header("Eye Visuals")]
     public SpriteRenderer eyeRenderer; // Drag the Eye child object here
     public Color healthyColor = Color.white;
     public Color dangerColor = Color.red;
+    private Transform _transform;
+    private Transform _parentTransform;
 
     [Header("HP & Power")]
     public float maxHP = 100f;
@@ -32,6 +36,8 @@ public class PlayerStats : MonoBehaviour
     {
         _mover = GetComponent<SlimeThrower>();
         currentHP = maxHP;
+        _transform = GetComponent<Transform>();
+        _parentTransform = transform.parent;
 
         // Auto-find eyes if not assigned
         if (eyeRenderer == null) eyeRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -49,13 +55,22 @@ public class PlayerStats : MonoBehaviour
             HandleOutsideShadow();
 
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
-        
-        if(inDanger) currentHP = Mathf.Clamp(currentHP, 0, maxHpInDanger);
+
+        if (inDanger) currentHP = Mathf.Clamp(currentHP, 0, maxHpInDanger);
 
         UpdateEyeColor();
 
         if (currentHP <= 0) Die(inShadow ? "THE DARKNESS CONSUMED YOU" : "VAPORIZED BY SUNLIGHT");
+
+        if (_isDead)
+        {
+            DOVirtual.DelayedCall(2f, () =>
+            {
+                Respawn();
+            });
+        }
     }
+
 
     private void UpdateEyeColor()
     {
@@ -125,5 +140,15 @@ public class PlayerStats : MonoBehaviour
         _mover.enabled = false;
         GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         if (eyeRenderer != null) eyeRenderer.color = Color.black; // Dead eyes
+        _transform.position = _parentTransform.position;
     }
+
+    private void Respawn()
+    {
+        _isDead = false;
+        _mover.enabled = true;
+        if (eyeRenderer != null) eyeRenderer.color = Color.white; // alive
+    }
+    
+    
 }
