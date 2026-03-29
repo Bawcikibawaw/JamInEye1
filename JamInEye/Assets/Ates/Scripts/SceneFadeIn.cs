@@ -1,4 +1,3 @@
-// SceneFadeIn.cs
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
@@ -8,56 +7,47 @@ public class SceneFadeIn : MonoBehaviour
 {
     public float fadeDuration = 0.8f;
 
+    private static bool _isFading = false;
+
     void Start()
     {
+        // If another SceneFadeIn already started this scene, skip
+        if (_isFading)
+        {
+            Destroy(this);
+            return;
+        }
+
+        _isFading = true;
         StartCoroutine(FadeInNextFrame());
     }
 
     IEnumerator FadeInNextFrame()
     {
-        Image fadeImage = GetOrCreateFadeImage();
+        Image fadeImage = GetFadeImage();
+        if (fadeImage == null)
+        {
+            _isFading = false;
+            yield break;
+        }
 
-        // Kill any running tween
         fadeImage.DOKill();
-
-        // Force black instantly
         fadeImage.color = new Color(0f, 0f, 0f, 1f);
 
-        // Wait one frame so scene is fully rendered before fading
         yield return null;
         yield return null;
 
-        // Now fade to clear
         fadeImage.DOFade(0f, fadeDuration)
             .SetEase(Ease.OutQuad)
-            .SetUpdate(true);
+            .SetUpdate(true)
+            .OnComplete(() => _isFading = false);
     }
 
-    Image GetOrCreateFadeImage()
+    Image GetFadeImage()
     {
-        GameObject existing = GameObject.Find("FadeCanvas");
-        if (existing != null)
-            return existing.GetComponentInChildren<Image>();
-
-        GameObject canvasObj = new GameObject("FadeCanvas");
-        Canvas canvas = canvasObj.AddComponent<Canvas>();
-        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 999;
-        canvasObj.AddComponent<CanvasScaler>();
-        canvasObj.AddComponent<GraphicRaycaster>();
-        DontDestroyOnLoad(canvasObj);
-
-        GameObject imageObj = new GameObject("FadePanel");
-        imageObj.transform.SetParent(canvasObj.transform, false);
-        Image img = imageObj.AddComponent<Image>();
-        img.color = new Color(0f, 0f, 0f, 1f);
-
-        RectTransform rt = img.GetComponent<RectTransform>();
-        rt.anchorMin = Vector2.zero;
-        rt.anchorMax = Vector2.one;
-        rt.offsetMin = Vector2.zero;
-        rt.offsetMax = Vector2.zero;
-
-        return img;
+        foreach (var canvas in FindObjectsByType<Canvas>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            if (canvas.gameObject.name == "FadeCanvas")
+                return canvas.GetComponentInChildren<Image>();
+        return null;
     }
 }
