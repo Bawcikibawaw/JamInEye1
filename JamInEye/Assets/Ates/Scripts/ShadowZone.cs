@@ -1,24 +1,41 @@
+// ShadowZone.cs
 using UnityEngine;
 
 public class ShadowZone : MonoBehaviour
 {
     [Header("Shadow Physics")]
-    public float shadowBrakingForce = 45f; 
+    public float shadowBrakingForce = 45f;
     public float suctionSpeed = 10f;
 
     private Collider2D _zoneCollider;
 
     void Awake() => _zoneCollider = GetComponent<Collider2D>();
 
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         SlimeThrower player = other.GetComponent<SlimeThrower>();
         if (player == null) return;
 
         player.AddShadow(_zoneCollider);
         player.EnterShadowColliderMode();
+    }
 
-        if (player.launchGraceTimer > 0 || player.IsDragging) return;
+    void OnTriggerStay2D(Collider2D other)
+    {
+        SlimeThrower player = other.GetComponent<SlimeThrower>();
+        if (player == null) return;
+
+        // Fallback in case Enter was missed due to collider being disabled during drag
+        player.AddShadow(_zoneCollider);
+
+        if (player.launchGraceTimer > 0) return;
+
+        if (player.IsDragging)
+        {
+            player.GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
+            return;
+        }
+
         if (player.canMoveWASD) return;
 
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
@@ -26,7 +43,11 @@ public class ShadowZone : MonoBehaviour
 
         if (speed > player.stopThreshold)
         {
-            rb.linearVelocity = Vector2.MoveTowards(rb.linearVelocity, Vector2.zero, Time.deltaTime * shadowBrakingForce);
+            rb.linearVelocity = Vector2.MoveTowards(
+                rb.linearVelocity,
+                Vector2.zero,
+                Time.deltaTime * shadowBrakingForce
+            );
         }
         else if (_zoneCollider.OverlapPoint(player.transform.position))
         {
