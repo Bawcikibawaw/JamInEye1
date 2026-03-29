@@ -5,19 +5,18 @@ using System.Collections.Generic;
 [RequireComponent(typeof(Rigidbody2D))]
 public class SlimeThrower : MonoBehaviour
 {
-    [Header("Flight & Physics")]
-    public float launchForce = 35f;
+    [Header("Flight & Physics")] public float launchForce = 35f;
     public float maxDragDistance = 4.0f;
     public float stopThreshold = 0.5f;
     public float airDrag = 1.5f;
     public float jumpPowerCost = 20f;
 
-    [Header("Magnetic Pull (Anti-Pancake)")]
-    [Range(5, 60)] public float boneElasticity = 35f;
+    [Header("Magnetic Pull (Anti-Pancake)")] [Range(5, 60)]
+    public float boneElasticity = 35f;
+
     public float maxBoneDrift = 1.1f;
 
-    [Header("Shadow Swimming")]
-    public bool canMoveWASD = false;
+    [Header("Shadow Swimming")] public bool canMoveWASD = false;
     public float wasdSpeed = 15f;
     public List<Collider2D> activeShadows = new List<Collider2D>();
     [HideInInspector] public float launchGraceTimer = 0f;
@@ -25,22 +24,20 @@ public class SlimeThrower : MonoBehaviour
 
     [Header("Visual Settings (Opacity Only)")]
     public float normalAlpha = 1.0f;
+
     public float swimmingAlpha = 0.3f;
     private float _currentAlpha = 1.0f;
     private float _currentSqueeze = 1.0f;
 
-    [Header("Bones")]
-    public Rigidbody2D[] edgeBones;
+    [Header("Bones")] public Rigidbody2D[] edgeBones;
     public LineRenderer trajectoryLine;
     public int trajectoryPoints = 20;
     public float trajectoryTimeStep = 0.05f;
 
-    [Header("Shadow Collider Settings")]
-    public float normalColliderRadius = 0.3f;
+    [Header("Shadow Collider Settings")] public float normalColliderRadius = 0.3f;
     public float shadowColliderRadius = 1.2f;
 
-    [Header("Bone Drag Physics")]
-    public float dragBoneSpring = 140f;
+    [Header("Bone Drag Physics")] public float dragBoneSpring = 140f;
     public float dragBoneDamping = 18f;
     public float dragBoneMaxForce = 80f;
     public float dragBoneMaxSpeed = 12f;
@@ -131,6 +128,7 @@ public class SlimeThrower : MonoBehaviour
 
     private void UpdateVisualsAndMagneticPull()
     {
+
         if (_mainSR != null)
         {
             float targetAlpha = (activeShadows.Count > 0) ? swimmingAlpha : normalAlpha;
@@ -247,7 +245,11 @@ public class SlimeThrower : MonoBehaviour
 
     private void HandleWASD()
     {
-        if (activeShadows.Count == 0) { canMoveWASD = false; return; }
+        if (activeShadows.Count == 0)
+        {
+            canMoveWASD = false;
+            return;
+        }
 
         float h = Input.GetAxisRaw("Horizontal"), v = Input.GetAxisRaw("Vertical");
         Vector2 inputDir = new Vector2(h, v).normalized;
@@ -259,7 +261,8 @@ public class SlimeThrower : MonoBehaviour
 
         bool inside = false;
         foreach (var s in activeShadows)
-            if (s != null && s.OverlapPoint(_rb.position)) inside = true;
+            if (s != null && s.OverlapPoint(_rb.position))
+                inside = true;
 
         if (!inside && activeShadows.Count > 0)
         {
@@ -299,15 +302,17 @@ public class SlimeThrower : MonoBehaviour
         if (_wallLayer != -1) Physics2D.IgnoreLayerCollision(_playerLayer, _wallLayer, true);
         ToggleColliders(false);
     }
-    
+
     private Vector2 GetDragDeltaWorldLike()
     {
         Vector2 currentScreen = Input.mousePosition;
         Vector2 screenDelta = currentScreen - _dragStartScreen;
 
         Camera cam = Camera.main;
-        Vector3 a = cam.ScreenToWorldPoint(new Vector3(0f, 0f, Mathf.Abs(cam.transform.position.z - transform.position.z)));
-        Vector3 b = cam.ScreenToWorldPoint(new Vector3(screenDelta.x, screenDelta.y, Mathf.Abs(cam.transform.position.z - transform.position.z)));
+        Vector3 a = cam.ScreenToWorldPoint(new Vector3(0f, 0f,
+            Mathf.Abs(cam.transform.position.z - transform.position.z)));
+        Vector3 b = cam.ScreenToWorldPoint(new Vector3(screenDelta.x, screenDelta.y,
+            Mathf.Abs(cam.transform.position.z - transform.position.z)));
 
         return Vector2.ClampMagnitude((Vector2)(b - a), maxDragDistance);
     }
@@ -336,8 +341,15 @@ public class SlimeThrower : MonoBehaviour
             _isFlying = false;
     }
 
-    public void AddShadow(Collider2D c) { if (!activeShadows.Contains(c)) activeShadows.Add(c); }
-    public void RemoveShadow(Collider2D c) { activeShadows.Remove(c); }
+    public void AddShadow(Collider2D c)
+    {
+        if (!activeShadows.Contains(c)) activeShadows.Add(c);
+    }
+
+    public void RemoveShadow(Collider2D c)
+    {
+        activeShadows.Remove(c);
+    }
 
     void DrawTrajectory(Vector2 vel)
     {
@@ -349,24 +361,52 @@ public class SlimeThrower : MonoBehaviour
             p += vel * trajectoryTimeStep;
         }
     }
+
     public void ForceBonesToSqueeze(float squeezeRatio, float tuckSpeed)
-{
-    // Update the visual ratio so it seamlessly transitions back later
-    _currentSqueeze = squeezeRatio; 
-    
-    for (int i = 0; i < edgeBones.Length; i++)
     {
-        if (_edgeRBs[i] == null) continue;
+        // Update the visual ratio so it seamlessly transitions back later
+        _currentSqueeze = squeezeRatio;
 
-        // 1. Kill residual velocity so the spring physics don't fight the suction
-        _edgeRBs[i].linearVelocity = Vector2.Lerp(_edgeRBs[i].linearVelocity, Vector2.zero, Time.deltaTime * tuckSpeed);
+        for (int i = 0; i < edgeBones.Length; i++)
+        {
+            if (_edgeRBs[i] == null) continue;
 
-        // 2. Calculate the tightly squeezed target position
-        Vector2 targetWorld = transform.TransformPoint(_initialOffsets[i] * squeezeRatio);
+            // 1. Kill residual velocity so the spring physics don't fight the suction
+            _edgeRBs[i].linearVelocity =
+                Vector2.Lerp(_edgeRBs[i].linearVelocity, Vector2.zero, Time.deltaTime * tuckSpeed);
 
-        // 3. Forcefully move the bone towards the squeezed position
-        _edgeRBs[i].MovePosition(Vector2.Lerp(_edgeRBs[i].position, targetWorld, Time.deltaTime * tuckSpeed));
+            // 2. Calculate the tightly squeezed target position
+            Vector2 targetWorld = transform.TransformPoint(_initialOffsets[i] * squeezeRatio);
+
+            // 3. Forcefully move the bone towards the squeezed position
+            _edgeRBs[i].MovePosition(Vector2.Lerp(_edgeRBs[i].position, targetWorld, Time.deltaTime * tuckSpeed));
+        }
     }
-}
+    
+    public void ResetPhysicsState()
+    {
+        // 1. Reset the flight state so the physics logic doesn't think it's mid-air
+        _isFlying = false;
+        launchGraceTimer = 0f;
+        bounceGraceTimer = 0f;
 
+        // 2. Clear Bone 9 (The Eye)
+        _rb.linearVelocity = Vector2.zero;
+        _rb.angularVelocity = 0f;
+
+        // 3. Clear all Edge Bones (0-7)
+        for (int i = 0; i < _edgeRBs.Length; i++)
+        {
+            if (_edgeRBs[i] != null)
+            {
+                // Stop their movement immediately
+                _edgeRBs[i].linearVelocity = Vector2.zero;
+                _edgeRBs[i].angularVelocity = 0f;
+
+                // SNAP them back to their circle positions relative to Bone 9
+                // This prevents the "Rubber Band" pull from across the map
+                edgeBones[i].transform.localPosition = _initialOffsets[i];
+            }
+        }
+    }
 }
