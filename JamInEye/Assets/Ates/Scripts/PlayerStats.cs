@@ -1,5 +1,4 @@
-﻿// PlayerStats.cs
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
@@ -19,15 +18,15 @@ public class PlayerStats : MonoBehaviour
     public float currentHP;
 
     [Header("Overcharge")]
-    public float maxOvercharge = 50f;   // tune in Inspector
+    public float maxOvercharge = 50f;   
     public float currentOvercharge = 0f;
-    public float overchargeRate = 15f;  // units per second while HP is full in shadow
+    public float overchargeRate = 15f;  
 
     [Header("Shadow Benefits")]
     public float shadowRegenRate = 20f;
     public bool inDanger = false;
 
-    [Header("Sun Penalty (The Cliffhangers)")]
+    [Header("Sun Penalty")]
     public float sunTickDamageBase = 12f;
     public float penaltyIncreaseRate = 1.5f;
 
@@ -36,8 +35,6 @@ public class PlayerStats : MonoBehaviour
     private SlimeThrower _mover;
     private bool _isDead = false;
 
-    private ChargeBar _chargeBar;
-    // Public read-only helpers for the UI
     public float TotalCharge => currentHP + currentOvercharge;
     public float MaxTotalCharge => maxHP + maxOvercharge;
 
@@ -50,8 +47,6 @@ public class PlayerStats : MonoBehaviour
 
         if (eyeRenderer == null)
             eyeRenderer = GetComponentInChildren<SpriteRenderer>();
-
-        _chargeBar = FindFirstObjectByType<ChargeBar>();
     }
 
     void Update()
@@ -65,11 +60,8 @@ public class PlayerStats : MonoBehaviour
         else
             HandleOutsideShadow();
 
-        // Clamp base HP
         currentHP = Mathf.Clamp(currentHP, 0, maxHP);
         if (inDanger) currentHP = Mathf.Clamp(currentHP, 0, maxHpInDanger);
-
-        // Clamp overcharge
         currentOvercharge = Mathf.Clamp(currentOvercharge, 0, maxOvercharge);
 
         UpdateEyeColor();
@@ -79,49 +71,36 @@ public class PlayerStats : MonoBehaviour
             Die("THE DARKNESS CONSUMED YOU");
         else if (currentHP <= 0 && currentOvercharge <= 0)
             Die("VAPORIZED BY SUNLIGHT");
-
-        if (_isDead) DOVirtual.DelayedCall(3f, Respawn);
     }
 
     private void UpdateEyeColor()
     {
         if (eyeRenderer == null) return;
-
-        Color targetColor = (currentHP < maxHP * 0.3f || currentOvercharge > maxOvercharge * 0.5f)
-            ? dangerColor
-            : healthyColor;
-
+        Color targetColor = (currentHP < maxHP * 0.3f || currentOvercharge > maxOvercharge * 0.5f) ? dangerColor : healthyColor;
         eyeRenderer.color = Color.Lerp(eyeRenderer.color, targetColor, Time.deltaTime * 5f);
     }
 
     private void HandleInsideShadow(Collider2D currentShadow)
     {
-        // Reset sun multiplier when entering a new shadow
         if (currentShadow != _lastShadow)
         {
             _lastShadow = currentShadow;
             _currentSunMultiplier = 1f;
         }
 
-        // Regen base HP first
         if (currentHP < maxHP)
-        {
             currentHP += shadowRegenRate * Time.deltaTime;
-        }
         else
         {
-            // Base HP is full → start filling overcharge
             currentOvercharge += overchargeRate * Time.deltaTime;
             _currentSunMultiplier += penaltyIncreaseRate * Time.deltaTime;
         }
 
-        // inDanger as soon as overcharge begins accumulating
         inDanger = currentOvercharge > 0f;
     }
 
     private void HandleOutsideShadow()
     {
-        // Drain overcharge first, then base HP
         float damage = sunTickDamageBase * _currentSunMultiplier * Time.deltaTime;
 
         if (currentOvercharge > 0f)
@@ -132,15 +111,10 @@ public class PlayerStats : MonoBehaviour
         }
 
         currentHP -= damage;
-
-        // Once out of shadow, reset sun multiplier ramp
         _currentSunMultiplier = Mathf.Max(1f, _currentSunMultiplier - Time.deltaTime);
         inDanger = currentOvercharge > 0f;
     }
 
-    /// <summary>
-    /// Consumes from total charge (overcharge first, then base HP).
-    /// </summary>
     public bool ConsumeJumpPower(float cost)
     {
         if (TotalCharge >= cost)
@@ -158,38 +132,35 @@ public class PlayerStats : MonoBehaviour
     {
         if (_isDead) return;
         _isDead = true;
+        
         Debug.Log("<color=red>GAME OVER: </color>" + reason);
 
+        // Stop movement immediately
         _mover.enabled = false;
         GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         if (eyeRenderer != null) eyeRenderer.color = Color.black;
 
+        // Start the Sequence
         StartCoroutine(DieRoutine());
     }
 
     private IEnumerator DieRoutine()
     {
-        Image fadeImage = GetFadeImage();
-        if (fadeImage != null)
-        {
-            fadeImage.DOKill();
-            fadeImage.color = new Color(0f, 0f, 0f, 0f);
-            fadeImage.DOFade(1f, 0.4f).SetEase(Ease.InQuad).SetUpdate(true);
-            yield return new WaitForSecondsRealtime(0.4f);
-        }
+        // 1. Fade out using the Global Manager
+        yield return FadeManager.Instance.FadeOut(0.4f).WaitForCompletion();
 
+        // 2. The 3-second "Death Delay" happens while screen is black
+        yield return new WaitForSecondsRealtime(2.0f); 
+
+        // 3. Teleport and Reset Physics
         _transform.position = _parentTransform.position;
         Respawn();
 
-        yield return null;
-        yield return null;
+        // 4. Wait for physics to settle
+        yield return new WaitForSecondsRealtime(0.2f);
 
-        if (fadeImage != null)
-        {
-            fadeImage.DOKill();
-            fadeImage.color = new Color(0f, 0f, 0f, 1f);
-            fadeImage.DOFade(0f, 0.4f).SetEase(Ease.OutQuad).SetUpdate(true);
-        }
+        // 5. Fade back in
+        FadeManager.Instance.FadeIn(0.4f);
     }
 
     private void Respawn()
@@ -199,12 +170,6 @@ public class PlayerStats : MonoBehaviour
         _currentSunMultiplier = 1f;
         _isDead = false;
         currentHP = maxHP;
-
-        // Force the vignette to snap instantly on respawn
-        //if (_chargeBar != null)
-        //{
-        //    _chargeBar.ForceResetVignette();
-        //}
 
         if (_mover != null)
         {
@@ -216,13 +181,6 @@ public class PlayerStats : MonoBehaviour
             eyeRenderer.color = healthyColor;
     }
 
-    private Image GetFadeImage()
-    {
-        GameObject canvas = GameObject.Find("FadeCanvas");
-        if (canvas != null) return canvas.GetComponentInChildren<Image>();
-        return null;
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("BrightObs"))
@@ -231,7 +189,7 @@ public class PlayerStats : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("BrightObs"))
-            Respawn();
+        // Optional: If you want to keep the player dead until the routine finishes,
+        // leave this blank or add logic here.
     }
 }
