@@ -67,6 +67,7 @@ public class FadeManager : MonoBehaviour
 
     public void FadeIn(float duration)
     {
+        //MainAudioManager.Instance.Play("LevelChangeSFX");
         _fadeImage.DOKill();
         _fadeImage.DOFade(0f, duration).SetUpdate(true).OnComplete(() => {
             _fadeImage.raycastTarget = false;

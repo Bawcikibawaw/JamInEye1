@@ -7625,26 +7625,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4347110368292881735, guid: 0d1c5ad07203ff346803f27f1191ea5d, type: 3}
-      propertyPath: sounds.Array.data[0].volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4347110368292881735, guid: 0d1c5ad07203ff346803f27f1191ea5d, type: 3}
-      propertyPath: sounds.Array.data[1].volume
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4347110368292881735, guid: 0d1c5ad07203ff346803f27f1191ea5d, type: 3}
-      propertyPath: sounds.Array.data[3].volume
-      value: 0.75
-      objectReference: {fileID: 0}
-    - target: {fileID: 4347110368292881735, guid: 0d1c5ad07203ff346803f27f1191ea5d, type: 3}
-      propertyPath: sounds.Array.data[4].volume
-      value: 0.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 4347110368292881735, guid: 0d1c5ad07203ff346803f27f1191ea5d, type: 3}
-      propertyPath: sounds.Array.data[0].volumeVariance
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8866663463703977182, guid: 0d1c5ad07203ff346803f27f1191ea5d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -4.256935
@@ -20580,14 +20560,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 295530448968229209, guid: 2ac2b7f6222f49745a9bdfc2bd5eea40, type: 3}
-      propertyPath: wasdSpeed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 295530448968229209, guid: 2ac2b7f6222f49745a9bdfc2bd5eea40, type: 3}
-      propertyPath: jumpPowerCost
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 2702609684981682688, guid: 2ac2b7f6222f49745a9bdfc2bd5eea40, type: 3}
       propertyPath: m_LocalPosition.x
       value: 32.95
@@ -20632,29 +20604,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blob-Player
       objectReference: {fileID: 0}
-    - target: {fileID: 5760147604129508523, guid: 2ac2b7f6222f49745a9bdfc2bd5eea40, type: 3}
-      propertyPath: maxOvercharge
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 5760147604129508523, guid: 2ac2b7f6222f49745a9bdfc2bd5eea40, type: 3}
-      propertyPath: overchargeRate
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5760147604129508523, guid: 2ac2b7f6222f49745a9bdfc2bd5eea40, type: 3}
-      propertyPath: shadowRegenRate
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 5760147604129508523, guid: 2ac2b7f6222f49745a9bdfc2bd5eea40, type: 3}
-      propertyPath: sunTickDamageBase
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5760147604129508523, guid: 2ac2b7f6222f49745a9bdfc2bd5eea40, type: 3}
-      propertyPath: penaltyIncreaseRate
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 6000623984247125996, guid: 2ac2b7f6222f49745a9bdfc2bd5eea40, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ac2b7f6222f49745a9bdfc2bd5eea40, type: 3}

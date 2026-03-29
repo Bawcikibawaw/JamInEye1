@@ -100,8 +100,8 @@ public class GameTimer : MonoBehaviour
     
         yield return new WaitForSecondsRealtime(0.2f);
     
-        if (FadeManager.Instance != null)
-            FadeManager.Instance.FadeIn(0.5f);
+        //if (FadeManager.Instance != null)
+        //    FadeManager.Instance.FadeIn(0.5f);
     }
 
     private void OnSceneLoadedAfterTimeUp(Scene scene, LoadSceneMode mode)

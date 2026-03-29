@@ -37,6 +37,8 @@ public class LevelTrigger : MonoBehaviour
 
         // 3. Load next scene 
         // (The moment this runs, this script is destroyed, but that's okay now!)
+        MainAudioManager.Instance.Play("LevelChangeSFX");
+
         SceneManager.LoadScene(nextSceneName);
     }
 }

@@ -140,7 +140,8 @@ public class PlayerStats : MonoBehaviour
         GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
         if (eyeRenderer != null) eyeRenderer.color = Color.black;
 
-        // Start the Sequence
+
+        MainAudioManager.Instance.Play("PlayerDeadSFX");
         StartCoroutine(DieRoutine());
     }
 
@@ -161,6 +162,7 @@ public class PlayerStats : MonoBehaviour
 
         // 5. Fade back in
         FadeManager.Instance.FadeIn(0.4f);
+
     }
 
     private void Respawn()

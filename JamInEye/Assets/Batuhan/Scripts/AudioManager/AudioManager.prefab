@@ -47,9 +47,9 @@ MonoBehaviour:
   mainMixerGroup: {fileID: 24300002, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
   sounds:
   - name: BrightHit
-    clip: {fileID: 8300000, guid: 14c327d85858cff4c9e1145b39ccbf52, type: 3}
-    volume: 0.75
-    volumeVariance: 0.1
+    clip: {fileID: 8300000, guid: 7a1f1914a76dc22489c3448dd51e9aa3, type: 3}
+    volume: 1
+    volumeVariance: 0
     pitch: 1
     pitchVariance: 0.1
     loop: 0
@@ -63,8 +63,8 @@ MonoBehaviour:
     maxDistance: 500
     spatialBlend: 0
   - name: DarkHit
-    clip: {fileID: 8300000, guid: b81f65a3d9eba5647ae98a1a262c70f3, type: 3}
-    volume: 0.75
+    clip: {fileID: 8300000, guid: fe332337fd30ca846937f39aaf527ee6, type: 3}
+    volume: 1
     volumeVariance: 0.1
     pitch: 1
     pitchVariance: 0.1
@@ -78,25 +78,9 @@ MonoBehaviour:
     minDistance: 1
     maxDistance: 500
     spatialBlend: 0
-  - name: FlySFX
-    clip: {fileID: 8300000, guid: ef19452658d26d146a42fa47931f0926, type: 3}
-    volume: 0.25
-    volumeVariance: 0.05
-    pitch: 1
-    pitchVariance: 0.25
-    loop: 0
-    playOnAwake: 0
-    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
-    onDifferentGO: 0
-    attachedObject: {fileID: 0}
-    attachedOnPlayer: 0
-    source: {fileID: 0}
-    minDistance: 1
-    maxDistance: 500
-    spatialBlend: 0
   - name: ShootSFX
     clip: {fileID: 8300000, guid: a91e38ab43e2c93459b485419c662085, type: 3}
-    volume: 0.5
+    volume: 0.75
     volumeVariance: 0.1
     pitch: 1.5
     pitchVariance: 0.1
@@ -111,8 +95,8 @@ MonoBehaviour:
     maxDistance: 500
     spatialBlend: 0
   - name: RelaseSFX
-    clip: {fileID: 8300000, guid: b9f63c696f3a3324fbdaafad32eb2f3d, type: 3}
-    volume: 0.75
+    clip: {fileID: 8300000, guid: 8a0b0550aaaab9b45a7e13b3dd5b5e22, type: 3}
+    volume: 0.9
     volumeVariance: 0.1
     pitch: 1
     pitchVariance: 0.1
@@ -206,15 +190,31 @@ MonoBehaviour:
     minDistance: 1
     maxDistance: 500
     spatialBlend: 0
-  - name: Music4
-    clip: {fileID: 8300000, guid: 1bbf67505e07349479025bf99307fdda, type: 3}
-    volume: 0.75
-    volumeVariance: 0.1
+  - name: PlayerDeadSFX
+    clip: {fileID: 8300000, guid: fbde549508a0cd14f96d5f9c8d2f6a71, type: 3}
+    volume: 1
+    volumeVariance: 0
     pitch: 1
-    pitchVariance: 0.1
+    pitchVariance: 0.2
     loop: 0
     playOnAwake: 0
-    mixerGroup: {fileID: -2450395280441171215, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
+    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
+    onDifferentGO: 0
+    attachedObject: {fileID: 0}
+    attachedOnPlayer: 0
+    source: {fileID: 0}
+    minDistance: 1
+    maxDistance: 500
+    spatialBlend: 0
+  - name: LevelChangeSFX
+    clip: {fileID: 8300000, guid: aebb4f19804a80c4884fae4d7149e5ab, type: 3}
+    volume: 1
+    volumeVariance: 0
+    pitch: 1
+    pitchVariance: 0.2
+    loop: 0
+    playOnAwake: 0
+    mixerGroup: {fileID: 1653940228679586492, guid: 696bfd5c9e4178247b7deff46636f09c, type: 2}
     onDifferentGO: 0
     attachedObject: {fileID: 0}
     attachedOnPlayer: 0

@@ -1390,7 +1390,7 @@ MonoBehaviour:
   maxDragDistance: 5
   stopThreshold: 3
   airDrag: 0
-  jumpPowerCost: 3
+  jumpPowerCost: 5
   boneElasticity: 35
   maxBoneDrift: 0.3
   canMoveWASD: 0
@@ -1438,11 +1438,13 @@ MonoBehaviour:
   maxHP: 70
   maxHpInDanger: 100
   currentHP: 70
-  shadowRegenRate: 20
+  maxOvercharge: 10
+  currentOvercharge: 0
+  overchargeRate: 5
+  shadowRegenRate: 30
   inDanger: 0
-  sunTickDamageBase: 0.1
-  penaltyIncreaseRate: 0.5
-  maxShadowTime: 6
+  sunTickDamageBase: 5
+  penaltyIncreaseRate: 0
 --- !u!1 &7892271902178363589
 GameObject:
   m_ObjectHideFlags: 0

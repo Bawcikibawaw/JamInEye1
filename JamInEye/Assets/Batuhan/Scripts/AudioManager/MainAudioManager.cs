@@ -283,8 +283,8 @@ public class MainAudioManager : MonoBehaviour
             if (s == null) continue;
 
             currentQueueTrack = trackName;
-            float fadeIn = fadeInTime > 0 ? fadeInTime : 1f;
-            float crossfade = fadeOutTime > 0 ? fadeOutTime : 1f;
+            //float fadeIn = fadeInTime > 0 ? fadeInTime : 1f;
+            //float crossfade = fadeOutTime > 0 ? fadeOutTime : 1f;
 
             // PREWARM: Load the NEXT track into memory while this one is about to play
             if (i + 1 < queue.trackNames.Length)
@@ -296,11 +296,11 @@ public class MainAudioManager : MonoBehaviour
                 }
             }
 
-            Play(trackName, fadeIn);
+            Play(trackName /*fadeIn*/);
 
             // CALCULATE EXACT WAIT TIME: We wait for the track length MINUS the crossfade time
             float trackDuration = s.clip.length / (s.pitch > 0 ? s.pitch : 1f);
-            float waitTime = trackDuration - crossfade;
+            float waitTime = trackDuration/* - crossfade*/;
 
             // Safety catch for very short sound effects
             if (waitTime <= 0) waitTime = trackDuration * 0.8f;
@@ -310,7 +310,7 @@ public class MainAudioManager : MonoBehaviour
 
             // Tell THIS track to fade out. Because the loop continues immediately, 
             // the NEXT track will start fading in at the exact same moment!
-            Stop(trackName, crossfade);
+            Stop(trackName /*crossfade*/);
         }
 
         // Loop finished, pick a new queue seamlessly
