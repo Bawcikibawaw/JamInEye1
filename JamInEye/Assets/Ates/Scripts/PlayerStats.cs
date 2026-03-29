@@ -1,6 +1,9 @@
 // PlayerStats.cs
+
+using System.Collections;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -113,12 +116,50 @@ public class PlayerStats : MonoBehaviour
 
     private void Die(string reason)
     {
+        if (_isDead) return;
         _isDead = true;
         Debug.Log("<color=red>GAME OVER: </color>" + reason);
+
         _mover.enabled = false;
         GetComponent<Rigidbody2D>().linearVelocity = Vector2.zero;
-        if (eyeRenderer != null) eyeRenderer.color = Color.black; // Dead eyes
+        if (eyeRenderer != null) eyeRenderer.color = Color.black;
+
+        StartCoroutine(DieRoutine());
+    }
+
+    private IEnumerator DieRoutine()
+    {
+        // Fade to black
+        Image fadeImage = GetFadeImage();
+        if (fadeImage != null)
+        {
+            fadeImage.DOKill();
+            fadeImage.color = new Color(0f, 0f, 0f, 0f);
+            fadeImage.DOFade(1f, 0.4f)
+                .SetEase(Ease.InQuad)
+                .SetUpdate(true);
+            yield return new WaitForSecondsRealtime(0.4f);
+        }
+
+        // Teleport while screen is black
         _transform.position = _parentTransform.position;
+
+        // Respawn
+        Respawn();
+
+        // Wait two frames so physics settles
+        yield return null;
+        yield return null;
+
+        // Fade back in
+        if (fadeImage != null)
+        {
+            fadeImage.DOKill();
+            fadeImage.color = new Color(0f, 0f, 0f, 1f);
+            fadeImage.DOFade(0f, 0.4f)
+                .SetEase(Ease.OutQuad)
+                .SetUpdate(true);
+        }
     }
 
     private void Respawn()
@@ -129,8 +170,6 @@ public class PlayerStats : MonoBehaviour
         _isDead = false;
         currentHP = maxHP;
 
-        // ── THE PHYSICS RESET ──
-        // Call the new cleanup function before starting the engine
         if (_mover != null)
         {
             _mover.ResetPhysicsState();
@@ -141,6 +180,14 @@ public class PlayerStats : MonoBehaviour
             eyeRenderer.color = healthyColor;
     }
 
+    private Image GetFadeImage()
+    {
+        GameObject canvas = GameObject.Find("FadeCanvas");
+        if (canvas != null) return canvas.GetComponentInChildren<Image>();
+        return null;
+    }
+    
+    
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("BrightObs"))

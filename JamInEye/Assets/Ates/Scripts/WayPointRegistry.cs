@@ -1,11 +1,12 @@
+// WaypointPathRegistry.cs
 using UnityEngine;
 using System.Collections.Generic;
 
-public class WayPointRegistry : MonoBehaviour
+public class WaypointPathRegistry : MonoBehaviour
 {
-    public static WayPointRegistry Instance { get; private set; }
+    public static WaypointPathRegistry Instance { get; private set; }
 
-    [Header("Prefabs — each will appear at least once")]
+    [Header("Default prefab pool — used for paths with no assigned prefab")]
     public List<GameObject> moverPrefabs;
 
     private List<WaypointPath> _allPaths = new List<WaypointPath>();
@@ -25,25 +26,38 @@ public class WayPointRegistry : MonoBehaviour
             return;
         }
 
-        List<GameObject> spawnList = BuildSpawnList(_allPaths.Count);
+        // Separate paths into assigned and unassigned
+        List<WaypointPath> assignedPaths = _allPaths.FindAll(p => p.assignedPrefab != null);
+        List<WaypointPath> randomPaths = _allPaths.FindAll(p => p.assignedPrefab == null);
 
-        for (int i = 0; i < _allPaths.Count; i++)
+        // Spawn assigned paths first — specific prefab per path
+        foreach (var path in assignedPaths)
         {
-            GameObject prefab = spawnList[i];
-            GameObject obj = Instantiate(prefab);
-            WaypointMover mover = obj.GetComponent<WaypointMover>();
-            if (mover != null)
-                mover.ClaimSpecificPath(_allPaths[i]);
-            else
-                Debug.LogWarning("Prefab " + prefab.name + " has no WaypointMover!");
+            Spawn(path, path.assignedPrefab);
         }
+
+        // Spawn random paths using the guaranteed shuffle system
+        List<GameObject> spawnList = BuildSpawnList(randomPaths.Count);
+        for (int i = 0; i < randomPaths.Count; i++)
+        {
+            Spawn(randomPaths[i], spawnList[i]);
+        }
+    }
+
+    void Spawn(WaypointPath path, GameObject prefab)
+    {
+        GameObject obj = Instantiate(prefab);
+        WaypointMover mover = obj.GetComponent<WaypointMover>();
+        if (mover != null)
+            mover.ClaimSpecificPath(path);
+        else
+            Debug.LogWarning("Prefab " + prefab.name + " has no WaypointMover!");
     }
 
     List<GameObject> BuildSpawnList(int pathCount)
     {
         List<GameObject> result = new List<GameObject>();
 
-        // Step 1 — shuffle a copy of prefabs so guaranteed slots are random order
         List<GameObject> shuffled = new List<GameObject>(moverPrefabs);
         for (int i = shuffled.Count - 1; i > 0; i--)
         {
@@ -51,12 +65,10 @@ public class WayPointRegistry : MonoBehaviour
             (shuffled[i], shuffled[j]) = (shuffled[j], shuffled[i]);
         }
 
-        // Step 2 — fill first N slots with one of each prefab (N = prefab count)
         int guaranteedCount = Mathf.Min(shuffled.Count, pathCount);
         for (int i = 0; i < guaranteedCount; i++)
             result.Add(shuffled[i]);
 
-        // Step 3 — fill remaining slots by picking randomly from full list
         for (int i = guaranteedCount; i < pathCount; i++)
             result.Add(moverPrefabs[Random.Range(0, moverPrefabs.Count)]);
 

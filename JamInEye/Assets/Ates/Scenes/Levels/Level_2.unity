@@ -7465,6 +7465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
+  assignedPrefab: {fileID: 0}
 --- !u!213 &328684363
 Sprite:
   m_ObjectHideFlags: 0
@@ -7739,6 +7740,8 @@ MonoBehaviour:
   moverPrefabs:
   - {fileID: 8953010577082718128, guid: 8009d154a4bf5fb4fa23de5f364f847a, type: 3}
   - {fileID: 8953010577082718128, guid: 368a49708d4bdf143b4e4ddf66a80b5b, type: 3}
+  - {fileID: 8953010577082718128, guid: deca87f35c154684f9f3b25526287fc7, type: 3}
+  - {fileID: 8953010577082718128, guid: 9602cd5e40e86cc4f836ced471233186, type: 3}
 --- !u!4 &507238866
 Transform:
   m_ObjectHideFlags: 0
@@ -8215,6 +8218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
+  assignedPrefab: {fileID: 0}
 --- !u!1 &668402501
 GameObject:
   m_ObjectHideFlags: 0
@@ -8425,6 +8429,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
+  assignedPrefab: {fileID: 0}
 --- !u!1 &781292781
 GameObject:
   m_ObjectHideFlags: 0
@@ -10055,6 +10060,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
+  assignedPrefab: {fileID: 0}
 --- !u!1 &1529753915
 GameObject:
   m_ObjectHideFlags: 0
@@ -17063,6 +17069,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
+  assignedPrefab: {fileID: 0}
 --- !u!1 &1738494778
 GameObject:
   m_ObjectHideFlags: 0
@@ -19185,6 +19192,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isOccupied: 0
+  assignedPrefab: {fileID: 0}
 --- !u!1 &1997079977
 GameObject:
   m_ObjectHideFlags: 0

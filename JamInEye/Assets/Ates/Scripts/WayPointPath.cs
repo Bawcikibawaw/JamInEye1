@@ -1,13 +1,15 @@
-// WaypointPath.cs — put this on each waypoint group in the level
+// WaypointPath.cs
 using UnityEngine;
 
 public class WaypointPath : MonoBehaviour
 {
     [HideInInspector] public bool isOccupied = false;
 
+    [Header("Assigned Prefab (optional — overrides registry random)")]
+    public GameObject assignedPrefab; // drag specific prefab here, leave null for random
+
     public Transform[] GetWaypoints()
     {
-        // All children of this group ARE the waypoints, in order
         Transform[] points = new Transform[transform.childCount];
         for (int i = 0; i < transform.childCount; i++)
             points[i] = transform.GetChild(i);

@@ -25,9 +25,13 @@ public class WaypointMover : MonoBehaviour
     private int _direction = 1;
     private Tween _moveTween;
     private Tween _shakeTween;
+    private bool _lastIsHorizontal = true;
 
     // Shake pivot — created at runtime, sprite becomes its child
     private GameObject _shakePivot;
+    
+    public event System.Action<bool> OnDirectionChanged; // true = horizontal
+    
 
     public void ClaimSpecificPath(WaypointPath path)
     {
@@ -123,38 +127,41 @@ public class WaypointMover : MonoBehaviour
         if (spriteRenderer == null) return;
 
         Vector3 moveDir = (target - transform.position).normalized;
-        Vector3 scale = spriteRenderer.transform.localScale;
-        float absX = Mathf.Abs(scale.x);
-        float absY = Mathf.Abs(scale.y);
-
         bool isHorizontal = Mathf.Abs(moveDir.x) >= Mathf.Abs(moveDir.y);
 
         if (isHorizontal)
         {
             spriteRenderer.sprite = spriteRight;
-            scale.x = moveDir.x >= 0f ? absX : -absX;
-            scale.y = absY;
+            spriteRenderer.flipX = moveDir.x < 0f;
+            spriteRenderer.flipY = false;
             if (colliderChild != null)
                 colliderChild.localRotation = Quaternion.Euler(0f, 0f, 0f);
         }
         else
         {
             spriteRenderer.sprite = spriteTop;
-            scale.y = moveDir.y >= 0f ? absY : -absY;
-            scale.x = absX;
+            spriteRenderer.flipY = moveDir.y < 0f;
+            spriteRenderer.flipX = false;
             if (colliderChild != null)
                 colliderChild.localRotation = Quaternion.Euler(0f, 0f, 90f);
         }
 
-        spriteRenderer.transform.localScale = scale;
-    }
+        spriteRenderer.transform.localScale = Vector3.one;
 
-    void OnDestroy()
-    {
+        // Only fire event when direction type actually changes
+        if (isHorizontal != _lastIsHorizontal)
+        {
+            _lastIsHorizontal = isHorizontal;
+            OnDirectionChanged?.Invoke(isHorizontal);
+        }
+    }
+    
+        void OnDestroy() 
+        {
         _moveTween?.Kill();
         _shakeTween?.Kill();
-        WayPointRegistry.Instance?.ReleasePath(_claimedPath);
-    }
+        WaypointPathRegistry.Instance?.ReleasePath(_claimedPath);
+        }
 
     void OnDrawGizmos()
     {
