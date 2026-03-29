@@ -32334,6 +32334,10 @@ PrefabInstance:
       propertyPath: nextSceneName
       value: Level_2
       objectReference: {fileID: 0}
+    - target: {fileID: 16203736132873506, guid: 652b9345df623e7438f8176c8f6216c7, type: 3}
+      propertyPath: victorySceneName
+      value: Final
+      objectReference: {fileID: 0}
     - target: {fileID: 5297145521797505882, guid: 652b9345df623e7438f8176c8f6216c7, type: 3}
       propertyPath: m_Name
       value: LevelManager

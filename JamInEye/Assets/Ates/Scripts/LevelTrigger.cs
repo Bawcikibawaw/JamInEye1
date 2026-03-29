@@ -8,7 +8,7 @@ public class LevelTrigger : MonoBehaviour
     public string nextSceneName;
     public float fadeDuration = 0.5f;
     public bool isFinalLevel = false;
-    public GameObject winPanel;
+    public string victorySceneName = "Victory"; 
 
     private bool _triggered = false;
 
@@ -27,11 +27,16 @@ public class LevelTrigger : MonoBehaviour
         // 2. Victory Check
         if (isFinalLevel)
         {
+            // Stop the game timer
             if (GameTimer.Instance != null) GameTimer.Instance.StopTimer();
-            if (winPanel != null) winPanel.SetActive(true);
             
-            // Because we aren't changing scenes, we manually fade back in
-            FadeManager.Instance.FadeIn(fadeDuration);
+            // Optional: Play a specific Victory SFX
+            MainAudioManager.Instance.Play("LevelChangeSFX"); 
+
+            // Load the Victory Scene
+            SceneManager.LoadScene(victorySceneName);
+            
+            // We stop here. FadeManager will automatically FadeIn in the new scene.
             yield break; 
         }
 

@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Ates/Scenes/Levels/Level_2.unity
     guid: 9fc1ba0db98cc8542b8dc96bd7431f93
+  - enabled: 1
+    path: Assets/Ates/Scenes/Final.unity
+    guid: 01a8900f10c84e344b39fe0f24ab0454
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
